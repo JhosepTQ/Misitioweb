@@ -4,7 +4,7 @@
 
 :root {
     /* Colores principales */
-    --primary-color: #10b981;
+    --primary-color: #059669;
     --primary-dark: #059669;
     --secondary-color: #6366f1;
     --dark: #0f172a;
@@ -337,7 +337,7 @@ ul {
     align-items: center;
     justify-content: center;
     position: relative;
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    background: linear-gradient(135deg, #0f172a 0%, #1b68e4 100%);
     padding-top: 80px;
     overflow: hidden;
 }
@@ -1333,4 +1333,3 @@ ul {
         flex-direction: column;
         gap: 20px;
     }
-}
