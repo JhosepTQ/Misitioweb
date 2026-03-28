@@ -258,9 +258,8 @@ ul {
     color: var(--dark);
 }
 
-.logo i {
-    color: var(--primary-color);
-    font-size: 1.8rem;
+.logo i img{
+    width: 100px;
 }
 
 .logo strong {
