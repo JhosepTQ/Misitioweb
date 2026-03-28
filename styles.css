@@ -1257,16 +1257,25 @@ ul {
         padding: 70px 0;
     }
     
+    /* Navbar mobile */
+    .logo {
+        font-size: 1.2rem;
+    }
+    
+    .logo i img {
+        width: 60px;
+    }
+    
     .hamburger {
         display: flex;
     }
     
     .nav-menu {
         position: fixed;
-        top: 80px;
+        top: 70px;
         left: -100%;
         width: 100%;
-        height: calc(100vh - 80px);
+        height: calc(100vh - 70px);
         background: var(--white);
         flex-direction: column;
         justify-content: flex-start;
@@ -1277,6 +1286,11 @@ ul {
     
     .nav-menu.active {
         left: 0;
+    }
+    
+    /* Hero mobile */
+    .hero {
+        padding-top: 100px;
     }
     
     .hero-content {
@@ -1343,6 +1357,24 @@ ul {
 }
 
 @media (max-width: 640px) {
+    /* Logo más pequeño en móviles pequeños */
+    .logo {
+        font-size: 1rem;
+    }
+    
+    .logo i img {
+        width: 50px;
+    }
+    
+    /* Hero extra mobile */
+    .hero {
+        padding-top: 120px;
+    }
+    
+    .hero-text h1 {
+        font-size: 2rem;
+    }
+    
     .services-grid,
     .portfolio-grid,
     .benefits-grid,
