@@ -476,8 +476,7 @@ ul {
 }
 
 .about-img-wrapper {
-    width: 400px;
-    height: 400px;
+    width: 420px;
     background: var(--gradient-primary);
     border-radius: 20px;
     display: flex;
