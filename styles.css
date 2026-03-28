@@ -160,6 +160,12 @@ ul {
     text-transform: none;
     letter-spacing: 0.5px;
 }
+.section-tag1 {
+    font-family: var(--font-decorative);
+    font-size: 1.3rem;
+    text-transform: none;
+    letter-spacing: 0.5px;
+}
 
 .section-subtitle {
     color: var(--gray);
@@ -1092,6 +1098,11 @@ ul {
 .footer-col h4 {
     color: var(--white);
     margin-bottom: 20px;
+}
+
+.footer-col ul {
+    list-style: disc;
+    padding-left: 20px;
 }
 
 .footer-col ul li {

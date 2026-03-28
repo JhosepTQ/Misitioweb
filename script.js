@@ -200,7 +200,7 @@ contactForm.addEventListener('submit', async (e) => {
         // Opcional: redirigir a WhatsApp
         setTimeout(() => {
             const whatsappMessage = `Hola, soy ${formData.nombre}. Estoy interesado en: ${formData.servicio}`;
-            const whatsappUrl = `https://wa.me/1234567890?text=${encodeURIComponent(whatsappMessage)}`;
+            const whatsappUrl = `https://wa.me/51992514222?text=${encodeURIComponent(whatsappMessage)}`;
             window.open(whatsappUrl, '_blank');
         }, 2000);
         
