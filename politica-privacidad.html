@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Política de Privacidad de J&G Web Studio. Conoce cómo protegemos y manejamos tu información personal.">
+    <title>Política de Privacidad | J&G Web Studio</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="Public/img/ico12.ico">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&family=Pacifico&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            background-attachment: fixed;
+        }
+        
+        .legal-content {
+            max-width: 1000px;
+            margin: 120px auto 60px;
+            padding: 0;
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .legal-header {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .legal-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 15s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .legal-header h1 {
+            color: white;
+            margin: 0 0 15px 0;
+            font-size: 3rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .legal-header .last-updated {
+            color: rgba(255,255,255,0.9);
+            font-size: 1rem;
+            margin: 0;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .legal-body {
+            padding: 50px;
+        }
+        
+        .section-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border-left: 5px solid #3b82f6;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .section-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+        }
+        
+        .legal-content h2 {
+            color: #1a1a2e;
+            margin-top: 50px;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #3b82f6;
+        }
+        
+        .legal-content h2::before {
+            content: '';
+            width: 8px;
+            height: 40px;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            border-radius: 4px;
+        }
+        
+        .legal-content h3 {
+            color: #2d3561;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .legal-content h3::before {
+            content: '▶';
+            color: #3b82f6;
+            font-size: 0.8rem;
+        }
+        
+        .legal-content p, .legal-content li {
+            color: #4a5568;
+            line-height: 1.9;
+            margin-bottom: 18px;
+            font-size: 1.05rem;
+        }
+        
+        .legal-content ul {
+            list-style: none;
+            margin-left: 0;
+            margin-bottom: 25px;
+        }
+        
+        .legal-content ul li {
+            padding-left: 35px;
+            position: relative;
+            margin-bottom: 12px;
+        }
+        
+        .legal-content ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: white;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .legal-content strong {
+            color: #1a1a2e;
+            font-weight: 600;
+        }
+        
+        .back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 40px;
+            padding: 15px 35px;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+        }
+        
+        .back-home:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.5);
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(37, 99, 235, 0.1) 100%);
+            border: 2px solid #3b82f6;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .highlight-box::before {
+            content: '💡';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 80px;
+            opacity: 0.1;
+        }
+        
+        .highlight-box p {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 10px;
+        }
+        
+        .highlight-box p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .icon-box {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            padding: 12px 20px;
+            border-radius: 50px;
+            margin: 5px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .icon-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+        
+        @media (max-width: 768px) {
+            .legal-content {
+                margin: 100px 20px 40px;
+            }
+            .legal-header {
+                padding: 40px 20px;
+            }
+            .legal-header h1 {
+                font-size: 2rem;
+            }
+            .legal-body {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <i><a href="index.html"><img src="Public/img/logo.png" alt="J&G Web Studio"></a></i>
+                <span>J&G <strong>Web Studio</strong></span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html#inicio" class="nav-link">Inicio</a></li>
+                <li><a href="index.html#nosotros" class="nav-link">Nosotros</a></li>
+                <li><a href="index.html#servicios" class="nav-link">Servicios</a></li>
+                <li><a href="index.html#portafolio" class="nav-link">Portafolio</a></li>
+                <li><a href="index.html#compromiso" class="nav-link">Compromiso</a></li>
+                <li><a href="index.html#contacto" class="nav-link btn-nav-contact">Contacto</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Legal Content -->
+    <div class="legal-content">
+        <div class="legal-header">
+            <h1>🔒 Política de Privacidad</h1>
+            <p class="last-updated">📅 Última actualización: 29 de marzo de 2026</p>
+        </div>
+        <div class="legal-body">
+
+        <div class="highlight-box">
+            <p><strong>En J&G Web Studio</strong>, nos tomamos muy en serio la privacidad y protección de tus datos personales. Esta política explica cómo recopilamos, usamos y protegemos tu información.</p>
+        </div>
+
+        <h2>1. Información que Recopilamos</h2>
+        <h3>1.1 Información Proporcionada Directamente</h3>
+        <p>Cuando te pones en contacto con nosotros o solicitas nuestros servicios, podemos recopilar:</p>
+        <ul>
+            <li><strong>Datos de contacto:</strong> Nombre completo, correo electrónico, número de teléfono</li>
+            <li><strong>Información de la empresa:</strong> Nombre de la empresa, sector, sitio web actual (si aplica)</li>
+            <li><strong>Detalles del proyecto:</strong> Requisitos, presupuesto, plazos y preferencias de diseño</li>
+            <li><strong>Comunicaciones:</strong> Mensajes enviados a través de formularios de contacto, WhatsApp o correo electrónico</li>
+        </ul>
+
+        <h3>1.2 Información Recopilada Automáticamente</h3>
+        <p>Cuando visitas nuestro sitio web, podemos recopilar automáticamente:</p>
+        <ul>
+            <li>Dirección IP y ubicación geográfica aproximada</li>
+            <li>Tipo de navegador y dispositivo utilizado</li>
+            <li>Páginas visitadas y tiempo de permanencia</li>
+            <li>Fuente de referencia (cómo llegaste a nuestro sitio)</li>
+        </ul>
+
+        <h2>2. Cómo Utilizamos tu Información</h2>
+        <p>Utilizamos la información recopilada para los siguientes fines:</p>
+        <ul>
+            <li><strong>Prestación de servicios:</strong> Desarrollar y entregar las páginas web y servicios contratados</li>
+            <li><strong>Comunicación:</strong> Responder consultas, enviar propuestas y mantener contacto durante el proyecto</li>
+            <li><strong>Mejora de servicios:</strong> Analizar el uso del sitio web para mejorar la experiencia del usuario</li>
+            <li><strong>Marketing:</strong> Enviar información sobre nuevos servicios o promociones (solo con tu consentimiento previo)</li>
+            <li><strong>Cumplimiento legal:</strong> Atender requerimientos legales o proteger nuestros derechos</li>
+        </ul>
+
+        <h2>3. Base Legal para el Tratamiento de Datos</h2>
+        <p>Procesamos tus datos personales bajo las siguientes bases legales:</p>
+        <ul>
+            <li><strong>Ejecución de contrato:</strong> Para proporcionar los servicios solicitados</li>
+            <li><strong>Consentimiento:</strong> Cuando nos autorizas expresamente (por ejemplo, para enviar comunicaciones comerciales)</li>
+            <li><strong>Interés legítimo:</strong> Para mejorar nuestros servicios y garantizar la seguridad del sitio</li>
+            <li><strong>Obligación legal:</strong> Para cumplir con requisitos legales aplicables</li>
+        </ul>
+
+        <h2>4. Compartir Información con Terceros</h2>
+        <p>No vendemos ni alquilamos tu información personal a terceros. Podemos compartir datos únicamente en los siguientes casos:</p>
+        <ul>
+            <li><strong>Proveedores de servicios:</strong> Con empresas que nos ayudan a operar (hosting, email, analytics), bajo estrictos acuerdos de confidencialidad</li>
+            <li><strong>Requerimientos legales:</strong> Cuando la ley lo requiera o para proteger nuestros derechos legales</li>
+            <li><strong>Transferencia empresarial:</strong> En caso de fusión, adquisición o venta de activos (previa notificación)</li>
+        </ul>
+
+        <h2>5. Seguridad de los Datos</h2>
+        <p>Implementamos medidas de seguridad técnicas y organizativas para proteger tu información:</p>
+        <ul>
+            <li>Cifrado SSL/TLS para la transmisión de datos sensibles</li>
+            <li>Acceso restringido a información personal solo para personal autorizado</li>
+            <li>Almacenamiento seguro con respaldo regular de datos</li>
+            <li>Revisión periódica de nuestras prácticas de seguridad</li>
+        </ul>
+        <p><em>Sin embargo, ningún método de transmisión por Internet es 100% seguro, por lo que no podemos garantizar la seguridad absoluta.</em></p>
+
+        <h2>6. Retención de Datos</h2>
+        <p>Conservamos tu información personal solo durante el tiempo necesario para:</p>
+        <ul>
+            <li>Cumplir con los fines descritos en esta política</li>
+            <li>Atender obligaciones legales, contables o fiscales</li>
+            <li>Resolver disputas y hacer cumplir nuestros acuerdos</li>
+        </ul>
+        <p>Una vez finalizada la relación comercial, tus datos serán eliminados o anonimizados, salvo que la ley requiera su conservación.</p>
+
+        <h2>7. Tus Derechos</h2>
+        <p>De acuerdo con la legislación aplicable de protección de datos, tienes derecho a:</p>
+        <ul>
+            <li><strong>Acceso:</strong> Solicitar una copia de los datos personales que tenemos sobre ti</li>
+            <li><strong>Rectificación:</strong> Corregir información inexacta o incompleta</li>
+            <li><strong>Eliminación:</strong> Solicitar la eliminación de tus datos ("derecho al olvido")</li>
+            <li><strong>Oposición:</strong> Oponerte al procesamiento de tus datos para ciertos fines</li>
+            <li><strong>Portabilidad:</strong> Recibir tus datos en un formato estructurado y de uso común</li>
+            <li><strong>Limitación:</strong> Solicitar la restricción del procesamiento de tus datos</li>
+            <li><strong>Revocar consentimiento:</strong> Retirar tu consentimiento en cualquier momento (sin afectar la legalidad del procesamiento previo)</li>
+        </ul>
+        
+        <div class="highlight-box">
+            <p><strong>Para ejercer cualquiera de estos derechos, contáctanos en:</strong> jgwebstudio@gmail.com</p>
+            <p>Responderemos a tu solicitud en un plazo máximo de 30 días.</p>
+        </div>
+
+        <h2>8. Cookies y Tecnologías Similares</h2>
+        <p>Utilizamos cookies y tecnologías similares para mejorar tu experiencia en nuestro sitio web:</p>
+        <ul>
+            <li><strong>Cookies esenciales:</strong> Necesarias para el funcionamiento básico del sitio</li>
+            <li><strong>Cookies analíticas:</strong> Para entender cómo los visitantes interactúan con nuestro sitio (Google Analytics)</li>
+            <li><strong>Cookies de marketing:</strong> Para mostrar publicidad relevante (solo con tu consentimiento)</li>
+        </ul>
+        <p>Puedes configurar tu navegador para rechazar cookies, aunque esto puede afectar la funcionalidad del sitio.</p>
+
+        <h2>9. Enlaces a Sitios de Terceros</h2>
+        <p>Nuestro sitio web puede contener enlaces a sitios de terceros. No somos responsables de las prácticas de privacidad de estos sitios. Te recomendamos revisar sus políticas de privacidad antes de proporcionar información personal.</p>
+
+        <h2>10. Privacidad de Menores</h2>
+        <p>Nuestros servicios no están dirigidos a menores de 18 años. No recopilamos intencionalmente información de menores. Si descubrimos que hemos recopilado datos de un menor, los eliminaremos de inmediato.</p>
+
+        <h2>11. Transferencias Internacionales de Datos</h2>
+        <p>Algunos de nuestros proveedores de servicios pueden estar ubicados fuera de Perú. En estos casos, garantizamos que se implementen salvaguardias adecuadas para proteger tu información, como cláusulas contractuales estándar aprobadas.</p>
+
+        <h2>12. Cambios a esta Política</h2>
+        <p>Nos reservamos el derecho de actualizar esta Política de Privacidad en cualquier momento. Los cambios significativos serán notificados mediante:</p>
+        <ul>
+            <li>Aviso destacado en nuestro sitio web</li>
+            <li>Correo electrónico a los clientes activos</li>
+            <li>Actualización de la fecha "Última actualización" en la parte superior de este documento</li>
+        </ul>
+        <p>Te recomendamos revisar periódicamente esta política para estar informado sobre cómo protegemos tu información.</p>
+
+        <h2>13. Contacto</h2>
+        <p>Si tienes preguntas, inquietudes o solicitudes relacionadas con esta Política de Privacidad o el tratamiento de tus datos personales, puedes contactarnos a través de:</p>
+        <div class="highlight-box">
+            <p><strong>J&G Web Studio</strong></p>
+            <p>📧 Email: jgwebstudio@gmail.com</p>
+            <p>📱 WhatsApp: +51 992 514 222</p>
+            <p>📍 Ubicación: Lima, Perú</p>
+            <p><em>Responderemos a todas las consultas en un plazo razonable.</em></p>
+        </div>
+
+        <h2>14. Autoridad de Control</h2>
+        <p>Si consideras que el tratamiento de tus datos personales vulnera la normativa aplicable, tienes derecho a presentar una reclamación ante la autoridad peruana de protección de datos:</p>
+        <p><strong>Autoridad Nacional de Protección de Datos Personales</strong><br>
+        Ministerio de Justicia y Derechos Humanos - Perú</p>
+
+        <hr style="margin: 40px 0; border: none; border-top: 2px solid #f0f0f0;">
+        
+        <p style="text-align: center; color: #666; font-size: 0.9rem;">
+            Al utilizar nuestros servicios, aceptas los términos de esta Política de Privacidad.<br>
+            Gracias por confiar en J&G Web Studio.
+        </p>
+
+        <div style="text-align: center; padding-top: 20px; border-top: 3px solid #f0f0f0; margin-top: 40px;">
+            <a href="index.html" class="back-home">
+                <i class="fas fa-home"></i> Volver al Inicio
+            </a>
+        </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container1">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <div class="logo">
+                        <i><img src="Public/img/logoblanco.png" alt=""></i>
+                        <span class="fot">J&G <strong>Web Studio</strong></span>
+                    </div>
+                    <p><i>Transformando ideas en experiencias digitales que impulsan negocios.</i></p>
+                    <br>
+                </div>
+                <div class="footer-col">
+                    <h4 class="section-tag1">Contactanos</h4>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li>📧<a href="mailto:jgwebstudio@gmail.com"> jgwebstudio@gmail.com</a></li>
+                        <li><i class="fab fa-whatsapp"></i> <a href="https://wa.me/51992514222" target="_blank"> +51 992 514 222</a></li>
+                        <li>📍 Lima, Perú (Trabajo remoto)</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4 class="section-tag1">Enlaces Rápidos</h4>
+                    <ul>
+                        <li><a href="index.html#inicio"><i>Inicio</i></a></li>
+                        <li><a href="index.html#nosotros"><i>Nosotros</i></a></li>
+                        <li><a href="index.html#servicios"><i>Servicios</i></a></li>
+                        <li><a href="index.html#portafolio"><i>Portafolio</i></a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4 class="section-tag1">Servicios</h4>
+                    <ul>
+                        <li><a href="index.html#servicios"><i>Landing Pages</i></a></li>
+                        <li><a href="index.html#servicios"><i>Sitios Corporativos</i></a></li>
+                        <li><a href="index.html#servicios"><i>Rediseño Web</i></a></li>
+                        <li><a href="index.html#servicios"><i>Hosting</i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 J&G Web Studio. Todos los derechos reservados.</p>
+                <div class="footer-links">
+                    <a href="politica-privacidad.html">Política de Privacidad</a>
+                    <a href="terminos-servicio.html">Términos de Servicio</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/51992514222?text=Hola,%20tengo%20una%20consulta%20sobre%20privacidad" class="whatsapp-float" target="_blank" title="Contactar por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="script.js"></script>
+</body>
+</html>

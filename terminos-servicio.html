@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Términos de Servicio de J&G Web Studio. Conoce las condiciones de uso de nuestros servicios de desarrollo web.">
+    <title>Términos de Servicio | J&G Web Studio</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="Public/img/ico12.ico">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&family=Pacifico&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            background-attachment: fixed;
+        }
+        
+        .legal-content {
+            max-width: 1000px;
+            margin: 120px auto 60px;
+            padding: 0;
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .legal-header {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .legal-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 15s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .legal-header h1 {
+            color: white;
+            margin: 0 0 15px 0;
+            font-size: 3rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .legal-header .last-updated {
+            color: rgba(255,255,255,0.9);
+            font-size: 1rem;
+            margin: 0;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .legal-body {
+            padding: 50px;
+        }
+        
+        .section-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border-left: 5px solid #3b82f6;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .section-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+        }
+        
+        .legal-content h2 {
+            color: #1a1a2e;
+            margin-top: 50px;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #3b82f6;
+        }
+        
+        .legal-content h2::before {
+            content: '';
+            width: 8px;
+            height: 40px;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            border-radius: 4px;
+        }
+        
+        .legal-content h3 {
+            color: #2d3561;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .legal-content h3::before {
+            content: '▶';
+            color: #3b82f6;
+            font-size: 0.8rem;
+        }
+        
+        .legal-content p, .legal-content li {
+            color: #4a5568;
+            line-height: 1.9;
+            margin-bottom: 18px;
+            font-size: 1.05rem;
+        }
+        
+        .legal-content ul {
+            list-style: none;
+            margin-left: 0;
+            margin-bottom: 25px;
+        }
+        
+        .legal-content ul li {
+            padding-left: 35px;
+            position: relative;
+            margin-bottom: 12px;
+        }
+        
+        .legal-content ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: white;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .legal-content strong {
+            color: #1a1a2e;
+            font-weight: 600;
+        }
+        
+        .back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 40px;
+            padding: 15px 35px;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+        }
+        
+        .back-home:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.5);
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(37, 99, 235, 0.1) 100%);
+            border: 2px solid #3b82f6;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .highlight-box::before {
+            content: '💡';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 80px;
+            opacity: 0.1;
+        }
+        
+        .highlight-box p {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 10px;
+        }
+        
+        .highlight-box p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, rgba(252, 129, 129, 0.1) 0%, rgba(245, 101, 101, 0.1) 100%);
+            border: 2px solid #fc8181;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .warning-box::before {
+            content: '⚠️';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 80px;
+            opacity: 0.1;
+        }
+        
+        .warning-box p {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 10px;
+        }
+        
+        .warning-box p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .icon-box {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            padding: 12px 20px;
+            border-radius: 50px;
+            margin: 5px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .icon-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+        
+        @media (max-width: 768px) {
+            .legal-content {
+                margin: 100px 20px 40px;
+            }
+            .legal-header {
+                padding: 40px 20px;
+            }
+            .legal-header h1 {
+                font-size: 2rem;
+            }
+            .legal-body {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <i><a href="index.html"><img src="Public/img/logo.png" alt="J&G Web Studio"></a></i>
+                <span>J&G <strong>Web Studio</strong></span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html#inicio" class="nav-link">Inicio</a></li>
+                <li><a href="index.html#nosotros" class="nav-link">Nosotros</a></li>
+                <li><a href="index.html#servicios" class="nav-link">Servicios</a></li>
+                <li><a href="index.html#portafolio" class="nav-link">Portafolio</a></li>
+                <li><a href="index.html#compromiso" class="nav-link">Compromiso</a></li>
+                <li><a href="index.html#contacto" class="nav-link btn-nav-contact">Contacto</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Legal Content -->
+    <div class="legal-content">
+        <div class="legal-header">
+            <h1>📜 Términos de Servicio</h1>
+            <p class="last-updated">📅 Última actualización: 29 de marzo de 2026</p>
+        </div>
+        <div class="legal-body">
+
+        <div class="highlight-box">
+            <p><strong>Bienvenido a J&G Web Studio.</strong> Estos Términos de Servicio ("Términos") rigen el uso de nuestro sitio web y la contratación de nuestros servicios de desarrollo web. Al acceder o utilizar nuestros servicios, aceptas estos términos en su totalidad.</p>
+        </div>
+
+        <h2>1. Aceptación de los Términos</h2>
+        <p>Al acceder a nuestro sitio web (jgwebstudio.com) o contratar nuestros servicios, aceptas cumplir con estos Términos de Servicio y todas las leyes aplicables. Si no estás de acuerdo con alguno de estos términos, no utilices nuestros servicios.</p>
+        
+        <h2>2. Descripción de los Servicios</h2>
+        <p>J&G Web Studio ofrece servicios profesionales de desarrollo web, que incluyen pero no se limitan a:</p>
+        <ul>
+            <li><strong>Landing Pages:</strong> Páginas de aterrizaje optimizadas para conversión</li>
+            <li><strong>Sitios Web Corporativos:</strong> Sitios web completos para empresas y negocios</li>
+            <li><strong>Rediseño Web:</strong> Modernización y mejora de sitios existentes</li>
+            <li><strong>Hosting y Dominio:</strong> Gestión de alojamiento web y nombres de dominio</li>
+            <li><strong>Mantenimiento Web:</strong> Soporte y actualizaciones continuas</li>
+        </ul>
+
+        <h2>3. Proceso de Contratación</h2>
+        <h3>3.1 Solicitud y Propuesta</h3>
+        <ul>
+            <li>El cliente solicita un servicio mediante formulario de contacto, WhatsApp o correo electrónico</li>
+            <li>J&G Web Studio evalúa los requisitos y presenta una propuesta comercial</li>
+            <li>La propuesta incluye: alcance del proyecto, plazos, precios y condiciones de pago</li>
+        </ul>
+
+        <h3>3.2 Aceptación y Pago Inicial</h3>
+        <ul>
+            <li>El contrato se considera aceptado al recibir el pago inicial (anticipo)</li>
+            <li>El anticipo estándar es del <strong>50% del valor total del proyecto</strong></li>
+            <li>Sin el pago inicial, no se reserva la fecha de inicio del proyecto</li>
+        </ul>
+
+        <h3>3.3 Desarrollo y Entrega</h3>
+        <ul>
+            <li>Una vez recibido el anticipo, se inicia el desarrollo según los plazos acordados</li>
+            <li>Se realizan revisiones intermedias con el cliente (según el paquete contratado)</li>
+            <li>Al completar el proyecto, se presenta la versión final para aprobación</li>
+            <li>El saldo restante (50%) debe pagarse antes de la entrega final de archivos y configuraciones</li>
+        </ul>
+
+        <h2>4. Plazos de Entrega</h2>
+        <p>Los plazos estimados para cada tipo de proyecto son:</p>
+        <ul>
+            <li><strong>Landing Page:</strong> 5-10 días hábiles</li>
+            <li><strong>Sitio Corporativo:</strong> 15-30 días hábiles</li>
+            <li><strong>Rediseño Web:</strong> 7-20 días hábiles (según complejidad)</li>
+        </ul>
+        
+        <div class="warning-box">
+            <p><strong>Importante:</strong> Los plazos pueden extenderse si el cliente no proporciona materiales (textos, imágenes, logos) en tiempo oportuno o solicita cambios fuera del alcance original.</p>
+        </div>
+
+        <h2>5. Responsabilidades del Cliente</h2>
+        <p>Para garantizar el éxito del proyecto, el cliente se compromete a:</p>
+        <ul>
+            <li>Proporcionar toda la información y materiales necesarios (textos, imágenes, logos, credenciales)</li>
+            <li>Responder a solicitudes de información en un plazo razonable (máximo 5 días hábiles)</li>
+            <li>Revisar y aprobar las entregas en los plazos establecidos</li>
+            <li>Realizar los pagos según los términos acordados</li>
+            <li>Proporcionar acceso a hosting, dominio y plataformas necesarias cuando aplique</li>
+        </ul>
+
+        <h2>6. Responsabilidades de J&G Web Studio</h2>
+        <p>Nos comprometemos a:</p>
+        <ul>
+            <li>Desarrollar el proyecto según las especificaciones acordadas</li>
+            <li>Cumplir con los plazos de entrega establecidos (sujeto a la colaboración del cliente)</li>
+            <li>Proporcionar soporte técnico durante el desarrollo del proyecto</li>
+            <li>Entregar un producto funcional y de calidad profesional</li>
+            <li>Mantener la confidencialidad de la información del cliente</li>
+        </ul>
+
+        <h2>7. Revisiones y Cambios</h2>
+        <h3>7.1 Revisiones Incluidas</h3>
+        <p>Cada paquete incluye un número específico de rondas de revisión:</p>
+        <ul>
+            <li><strong>Paquete Básico:</strong> 1 ronda de revisión</li>
+            <li><strong>Paquete Profesional:</strong> 2 rondas de revisión</li>
+            <li><strong>Paquete Premium:</strong> 3 rondas de revisión</li>
+        </ul>
+
+        <h3>7.2 Cambios Adicionales</h3>
+        <p>Cambios solicitados fuera del alcance original o después de agotar las revisiones incluidas tendrán un costo adicional, que será comunicado previamente al cliente.</p>
+
+        <h2>8. Política de Pagos</h2>
+        <h3>8.1 Métodos de Pago Aceptados</h3>
+        <ul>
+            <li>Transferencia bancaria</li>
+            <li>Yape / Plin (Perú)</li>
+            <li>PayPal (sujeto a comisiones adicionales)</li>
+        </ul>
+
+        <h3>8.2 Estructura de Pagos</h3>
+        <ul>
+            <li><strong>50% anticipo:</strong> Al aceptar la propuesta (reserva fecha de inicio)</li>
+            <li><strong>50% saldo final:</strong> Antes de la entrega de archivos finales y publicación</li>
+        </ul>
+
+        <h3>8.3 Pagos Retrasados</h3>
+        <p>Si el pago final no se recibe dentro de los 7 días posteriores a la aprobación del proyecto:</p>
+        <ul>
+            <li>Se suspenderá la entrega de archivos y configuraciones</li>
+            <li>Se podrá aplicar un cargo adicional del 10% por retraso</li>
+            <li>J&G Web Studio se reserva el derecho de desactivar el sitio web temporalmente</li>
+        </ul>
+
+        <h2>9. Propiedad Intelectual</h2>
+        <h3>9.1 Derechos de Autor del Proyecto</h3>
+        <ul>
+            <li>Una vez completado el pago total, el cliente obtiene los derechos de uso del diseño final</li>
+            <li>J&G Web Studio conserva los derechos sobre el código base, frameworks y herramientas utilizadas</li>
+            <li>El cliente no puede revender o redistribuir el diseño como plantilla comercial</li>
+        </ul>
+
+        <h3>9.2 Portfolio y Referencias</h3>
+        <p>J&G Web Studio se reserva el derecho de incluir el proyecto en su portfolio público, salvo que el cliente solicite confidencialidad explícita por escrito.</p>
+
+        <h3>9.3 Materiales del Cliente</h3>
+        <p>El cliente garantiza que posee los derechos legales de todos los materiales proporcionados (imágenes, textos, logos) y exime a J&G Web Studio de responsabilidad por violaciones de derechos de autor.</p>
+
+        <h2>10. Garantía y Soporte</h2>
+        <h3>10.1 Período de Garantía</h3>
+        <p>Ofrecemos <strong>30 días de garantía</strong> después de la entrega final, que cubre:</p>
+        <ul>
+            <li>Corrección de errores técnicos o bugs del código desarrollado por nosotros</li>
+            <li>Problemas de compatibilidad con navegadores principales</li>
+            <li>Ajustes menores de diseño dentro del alcance original</li>
+        </ul>
+
+        <h3>10.2 Exclusiones de Garantía</h3>
+        <p>La garantía NO cubre:</p>
+        <ul>
+            <li>Problemas causados por modificaciones realizadas por terceros</li>
+            <li>Cambios solicitados fuera del alcance original del proyecto</li>
+            <li>Problemas de hosting, dominio o servicios de terceros</li>
+            <li>Errores causados por contenido o plugins agregados por el cliente</li>
+        </ul>
+
+        <h3>10.3 Soporte Continuo</h3>
+        <p>Después del período de garantía, ofrecemos planes de mantenimiento mensual para soporte continuo y actualizaciones.</p>
+
+        <h2>11. Cancelaciones y Reembolsos</h2>
+        <h3>11.1 Cancelación por el Cliente</h3>
+        <ul>
+            <li><strong>Antes de iniciar el proyecto:</strong> Reembolso del 80% del anticipo (se retiene 20% por costos administrativos)</li>
+            <li><strong>Después de iniciar el proyecto:</strong> No hay reembolso del anticipo. Se entrega el trabajo realizado hasta la fecha</li>
+            <li><strong>Después de la entrega final:</strong> No se aceptan cancelaciones ni reembolsos</li>
+        </ul>
+
+        <h3>11.2 Cancelación por J&G Web Studio</h3>
+        <p>Nos reservamos el derecho de cancelar un proyecto y reembolsar el 100% del anticipo si:</p>
+        <ul>
+            <li>El cliente no proporciona información necesaria después de 3 solicitudes</li>
+            <li>Existe comportamiento abusivo o irrespetuoso hacia nuestro equipo</li>
+            <li>Detectamos actividades ilegales o fraudulentas</li>
+        </ul>
+
+        <h2>12. Limitación de Responsabilidad</h2>
+        <p>J&G Web Studio no será responsable por:</p>
+        <ul>
+            <li><strong>Pérdida de datos:</strong> Causada por fallas del hosting, dominio o servicios de terceros</li>
+            <li><strong>Daños indirectos:</strong> Pérdida de ingresos, oportunidades de negocio o daños consecuentes</li>
+            <li><strong>Contenido del cliente:</strong> Contenido ilegal, difamatorio o que viole derechos de terceros</li>
+            <li><strong>Servicios de terceros:</strong> Fallas de hosting, SSL, CDN, plugins o servicios externos</li>
+            <li><strong>Problemas de SEO:</strong> No garantizamos posiciones específicas en motores de búsqueda</li>
+        </ul>
+        
+        <div class="warning-box">
+            <p><strong>Nuestra responsabilidad máxima</strong> se limita al monto total pagado por el cliente por el servicio específico que causó el daño.</p>
+        </div>
+
+        <h2>13. Confidencialidad</h2>
+        <p>Ambas partes se comprometen a mantener la confidencialidad de:</p>
+        <ul>
+            <li>Información comercial o técnica sensible compartida durante el proyecto</li>
+            <li>Credenciales de acceso a plataformas y servicios</li>
+            <li>Estrategias de negocio o marketing reveladas</li>
+        </ul>
+        <p>Esta obligación permanece vigente incluso después de finalizar la relación comercial.</p>
+
+        <h2>14. Uso Aceptable</h2>
+        <p>El cliente se compromete a NO utilizar nuestros servicios para:</p>
+        <ul>
+            <li>Actividades ilegales o fraudulentas</li>
+            <li>Distribución de malware, virus o código malicioso</li>
+            <li>Spam, phishing o prácticas de marketing engañosas</li>
+            <li>Contenido que viole derechos de autor o propiedad intelectual</li>
+            <li>Material ofensivo, difamatorio, pornográfico o que incite al odio</li>
+            <li>Actividades que violen las leyes peruanas o internacionales</li>
+        </ul>
+
+        <h2>15. Fuerza Mayor</h2>
+        <p>No seremos responsables por retrasos o incumplimientos causados por circunstancias fuera de nuestro control razonable, incluyendo:</p>
+        <ul>
+            <li>Desastres naturales</li>
+            <li>Pandemias o emergencias sanitarias</li>
+            <li>Cortes de energía o internet prolongados</li>
+            <li>Conflictos laborales o políticos</li>
+            <li>Fallas de servicios esenciales de terceros</li>
+        </ul>
+
+        <h2>16. Modificaciones a los Términos</h2>
+        <p>Nos reservamos el derecho de modificar estos Términos de Servicio en cualquier momento. Los cambios serán notificados mediante:</p>
+        <ul>
+            <li>Publicación de la versión actualizada en nuestro sitio web</li>
+            <li>Correo electrónico a clientes con proyectos activos</li>
+            <li>Actualización de la fecha "Última actualización"</li>
+        </ul>
+        <p>El uso continuado de nuestros servicios después de la publicación de cambios constituye aceptación de los nuevos términos.</p>
+
+        <h2>17. Resolución de Disputas</h2>
+        <h3>17.1 Mediación</h3>
+        <p>En caso de desacuerdo, ambas partes se comprometen a intentar resolver el conflicto mediante mediación amistosa antes de emprender acciones legales.</p>
+
+        <h3>17.2 Jurisdicción</h3>
+        <p>Estos Términos de Servicio se rigen por las leyes de la República del Perú. Cualquier disputa que no pueda resolverse mediante mediación será sometida a los tribunales competentes de Lima, Perú.</p>
+
+        <h2>18. Divisibilidad</h2>
+        <p>Si alguna disposición de estos Términos se considera inválida o inaplicable, las demás disposiciones permanecerán en pleno vigor y efecto.</p>
+
+        <h2>19. Contacto</h2>
+        <p>Para consultas, solicitudes o aclaraciones sobre estos Términos de Servicio, puedes contactarnos en:</p>
+        <div class="highlight-box">
+            <p><strong>J&G Web Studio</strong></p>
+            <p>📧 Email: jgwebstudio@gmail.com</p>
+            <p>📱 WhatsApp: +51 992 514 222</p>
+            <p>📍 Ubicación: Lima, Perú</p>
+            <p><em>Horario de atención: Lunes a Sábado, 9:00 AM - 8:00 PM (GMT-5)</em></p>
+        </div>
+
+        <hr style="margin: 40px 0; border: none; border-top: 2px solid #f0f0f0;">
+        
+        <p style="text-align: center; color: #666; font-size: 0.9rem;">
+            Al utilizar nuestros servicios, aceptas estos Términos de Servicio en su totalidad.<br>
+            Última revisión: 29 de marzo de 2026
+        </p>
+
+        <div style="text-align: center; padding-top: 20px; border-top: 3px solid #f0f0f0; margin-top: 40px;">
+            <a href="index.html" class="back-home">
+                <i class="fas fa-home"></i> Volver al Inicio
+            </a>
+        </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container1">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <div class="logo">
+                        <i><img src="Public/img/logoblanco.png" alt=""></i>
+                        <span class="fot">J&G <strong>Web Studio</strong></span>
+                    </div>
+                    <p><i>Transformando ideas en experiencias digitales que impulsan negocios.</i></p>
+                    <br>
+                </div>
+                <div class="footer-col">
+                    <h4 class="section-tag1">Contactanos</h4>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li>📧<a href="mailto:jgwebstudio@gmail.com"> jgwebstudio@gmail.com</a></li>
+                        <li><i class="fab fa-whatsapp"></i> <a href="https://wa.me/51992514222" target="_blank"> +51 992 514 222</a></li>
+                        <li>📍 Lima, Perú (Trabajo remoto)</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4 class="section-tag1">Enlaces Rápidos</h4>
+                    <ul>
+                        <li><a href="index.html#inicio"><i>Inicio</i></a></li>
+                        <li><a href="index.html#nosotros"><i>Nosotros</i></a></li>
+                        <li><a href="index.html#servicios"><i>Servicios</i></a></li>
+                        <li><a href="index.html#portafolio"><i>Portafolio</i></a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4 class="section-tag1">Servicios</h4>
+                    <ul>
+                        <li><a href="index.html#servicios"><i>Landing Pages</i></a></li>
+                        <li><a href="index.html#servicios"><i>Sitios Corporativos</i></a></li>
+                        <li><a href="index.html#servicios"><i>Rediseño Web</i></a></li>
+                        <li><a href="index.html#servicios"><i>Hosting</i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 J&G Web Studio. Todos los derechos reservados.</p>
+                <div class="footer-links">
+                    <a href="politica-privacidad.html">Política de Privacidad</a>
+                    <a href="terminos-servicio.html">Términos de Servicio</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/51992514222?text=Hola,%20tengo%20una%20consulta%20sobre%20términos%20de%20servicio" class="whatsapp-float" target="_blank" title="Contactar por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="script.js"></script>
+</body>
+</html>
