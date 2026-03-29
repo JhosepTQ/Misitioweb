@@ -415,6 +415,35 @@ ul {
     line-height: 1.8;
 }
 
+/* Social Proof */
+.hero-social-proof {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.social-stars {
+    display: flex;
+    gap: 3px;
+}
+
+.social-stars i {
+    color: #fbbf24;
+    font-size: 1rem;
+}
+
+.social-divider {
+    color: var(--gray-light);
+    font-size: 0.95rem;
+}
+
+.social-text {
+    color: var(--gray-light);
+    font-size: 0.95rem;
+}
+
 .hero-buttons {
     display: flex;
     gap: 20px;
@@ -1363,13 +1392,54 @@ ul {
     .hero-buttons {
         flex-direction: column;
     }
+
+    
+    .hero-buttons .btn {
+        width: 100%;
+        justify-content: center;
+    }
     
     .hero-stats {
         justify-content: center;
+        flex-wrap: wrap;
+        gap: 30px;
+    }
+    
+    /* Social proof mobile */
+    .hero-social-proof {
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    .social-text {
+        font-size: 0.85rem;
     }
     
     .hero-image {
         display: none;
+    }
+    
+    /* Tech badges mobile */
+    .tech-badges {
+        margin-top: 30px;
+        padding-top: 20px;
+    }
+    
+    .tech-badges-title {
+        text-align: center;
+    }
+    
+    .tech-badges-grid {
+        justify-content: center;
+        gap: 15px;
+    }
+    
+    .tech-badge-item i {
+        font-size: 1.5rem !important;
+    }
+    
+    .tech-badge-item span {
+        font-size: 0.85rem;
     }
     
     .about-content {
@@ -1431,6 +1501,60 @@ ul {
     
     .hero-text h1 {
         font-size: 2rem;
+    }
+    
+    /* Tech badges extra small screens */
+    .tech-badges-title {
+        font-size: 0.75rem;
+        text-align: center;
+    }
+    
+    .tech-badges-grid {
+        gap: 12px;
+        justify-content: center;
+    }
+    
+    .tech-badge-item {
+        gap: 6px;
+    }
+    
+    .tech-badge-item i {
+        font-size: 1.3rem !important;
+    }
+    
+    .tech-badge-item span {
+        font-size: 0.75rem;
+    }
+    
+    /* Stats más compactas en móvil pequeño */
+    .hero-stats {
+        gap: 20px;
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+    }
+    
+    .stat-label {
+        font-size: 0.75rem;
+    }
+    
+    /* Social proof extra small */
+    .hero-social-proof {
+        gap: 8px;
+        font-size: 0.8rem;
+    }
+    
+    .social-stars i {
+        font-size: 0.85rem;
+    }
+    
+    .social-text {
+        font-size: 0.75rem;
+    }
+    
+    .social-divider {
+        display: none;
     }
     
     .services-grid,
