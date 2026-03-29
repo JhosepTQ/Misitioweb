@@ -252,18 +252,26 @@ const statsObserver = new IntersectionObserver((entries) => {
         if (entry.isIntersecting) {
             const statNumbers = document.querySelectorAll('.stat-number');
             statNumbers.forEach(stat => {
+                // Ignorar elementos que contengan íconos
+                if (stat.querySelector('i')) {
+                    return; // Saltar este elemento
+                }
+                
                 const text = stat.textContent;
                 const hasPlus = text.includes('+');
                 const hasPercent = text.includes('%');
                 const number = parseInt(text.replace(/\D/g, ''));
                 
-                stat.textContent = '0' + (hasPercent ? '%' : hasPlus ? '+' : '');
-                animateCounter(stat, number, 2000);
-                
-                // Restaurar el formato original
-                setTimeout(() => {
-                    stat.textContent = number + (hasPercent ? '%' : hasPlus ? '+' : '');
-                }, 2100);
+                // Solo animar si es un número válido
+                if (!isNaN(number)) {
+                    stat.textContent = '0' + (hasPercent ? '%' : hasPlus ? '+' : '');
+                    animateCounter(stat, number, 2000);
+                    
+                    // Restaurar el formato original
+                    setTimeout(() => {
+                        stat.textContent = number + (hasPercent ? '%' : hasPlus ? '+' : '');
+                    }, 2100);
+                }
             });
             statsObserver.unobserve(entry.target);
         }
