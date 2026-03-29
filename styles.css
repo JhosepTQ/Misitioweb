@@ -448,6 +448,41 @@ ul {
     gap: 20px;
 }
 
+/* Tech Badges */
+.tech-badges {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.tech-badges-title {
+    color: var(--gray-light);
+    font-size: 0.85rem;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.tech-badges-grid {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.tech-badge-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tech-badge-item span {
+    color: var(--gray-light);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
 .hero-card {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
