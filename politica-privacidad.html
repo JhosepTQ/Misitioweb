@@ -17,234 +17,133 @@
     <link rel="stylesheet" href="styles.css">
     <style>
         body {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            background-attachment: fixed;
+            background: white;
         }
         
         .legal-content {
             max-width: 1000px;
             margin: 120px auto 60px;
-            padding: 0;
+            padding: 50px 80px;
             background: white;
-            border-radius: 25px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            overflow: hidden;
         }
         
         .legal-header {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            padding: 60px 40px;
             text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .legal-header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: pulse 15s ease-in-out infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            margin-bottom: 40px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 20px;
         }
         
         .legal-header h1 {
-            color: white;
+            color: #1a1a1a;
             margin: 0 0 15px 0;
-            font-size: 3rem;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            position: relative;
-            z-index: 1;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
         .legal-header .last-updated {
-            color: rgba(255,255,255,0.9);
-            font-size: 1rem;
+            color: #666;
+            font-size: 0.9rem;
             margin: 0;
-            position: relative;
-            z-index: 1;
         }
         
         .legal-body {
-            padding: 50px;
-        }
-        
-        .section-card {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 30px;
-            margin: 30px 0;
-            border-left: 5px solid #3b82f6;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        .section-card:hover {
-            transform: translateX(5px);
-            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+            padding: 0;
         }
         
         .legal-content h2 {
-            color: #1a1a2e;
-            margin-top: 50px;
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding-bottom: 15px;
-            border-bottom: 3px solid #3b82f6;
-        }
-        
-        .legal-content h2::before {
-            content: '';
-            width: 8px;
-            height: 40px;
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            border-radius: 4px;
+            color: #1a1a1a;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            font-weight: 700;
         }
         
         .legal-content h3 {
-            color: #2d3561;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .legal-content h3::before {
-            content: '▶';
-            color: #3b82f6;
-            font-size: 0.8rem;
+            color: #333;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
         }
         
         .legal-content p, .legal-content li {
-            color: #4a5568;
-            line-height: 1.9;
-            margin-bottom: 18px;
-            font-size: 1.05rem;
+            color: #4a4a4a;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            text-align: justify;
         }
         
         .legal-content ul {
-            list-style: none;
-            margin-left: 0;
-            margin-bottom: 25px;
+            list-style: disc;
+            margin-left: 30px;
+            margin-bottom: 20px;
         }
         
         .legal-content ul li {
-            padding-left: 35px;
-            position: relative;
-            margin-bottom: 12px;
-        }
-        
-        .legal-content ul li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: white;
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 14px;
+            margin-bottom: 8px;
         }
         
         .legal-content strong {
-            color: #1a1a2e;
+            color: #1a1a1a;
             font-weight: 600;
+        }
+        
+        .legal-content a {
+            color: #3b82f6;
+            text-decoration: none;
+        }
+        
+        .legal-content a:hover {
+            text-decoration: underline;
         }
         
         .back-home {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 40px;
-            padding: 15px 35px;
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 25px;
+            background: #333;
             color: white;
             text-decoration: none;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+            font-weight: 500;
+            font-size: 0.9rem;
         }
         
         .back-home:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.5);
+            background: #1a1a1a;
         }
         
         .highlight-box {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(37, 99, 235, 0.1) 100%);
-            border: 2px solid #3b82f6;
-            border-radius: 15px;
-            padding: 30px;
-            margin: 30px 0;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .highlight-box::before {
-            content: '💡';
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            font-size: 80px;
-            opacity: 0.1;
+            background: #f9f9f9;
+            border-left: 3px solid #333;
+            padding: 20px 25px;
+            margin: 25px 0;
         }
         
         .highlight-box p {
-            position: relative;
-            z-index: 1;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         
         .highlight-box p:last-child {
             margin-bottom: 0;
         }
         
-        .icon-box {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: white;
-            padding: 12px 20px;
-            border-radius: 50px;
-            margin: 5px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .icon-box:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        hr {
+            border: none;
+            border-top: 1px solid #ddd;
+            margin: 30px 0;
         }
         
         @media (max-width: 768px) {
             .legal-content {
-                margin: 100px 20px 40px;
-            }
-            .legal-header {
-                padding: 40px 20px;
+                margin: 100px 15px 40px;
+                padding: 30px 25px;
             }
             .legal-header h1 {
-                font-size: 2rem;
-            }
-            .legal-body {
-                padding: 30px 20px;
+                font-size: 1.4rem;
             }
         }
     </style>
@@ -277,8 +176,8 @@
     <!-- Legal Content -->
     <div class="legal-content">
         <div class="legal-header">
-            <h1>🔒 Política de Privacidad</h1>
-            <p class="last-updated">📅 Última actualización: 29 de marzo de 2026</p>
+            <h1>Política de Privacidad</h1>
+            <p class="last-updated">Última actualización: 29 de marzo de 2026</p>
         </div>
         <div class="legal-body">
 
@@ -399,9 +298,9 @@
         <p>Si tienes preguntas, inquietudes o solicitudes relacionadas con esta Política de Privacidad o el tratamiento de tus datos personales, puedes contactarnos a través de:</p>
         <div class="highlight-box">
             <p><strong>J&G Web Studio</strong></p>
-            <p>📧 Email: jgwebstudio@gmail.com</p>
-            <p>📱 WhatsApp: +51 992 514 222</p>
-            <p>📍 Ubicación: Lima, Perú</p>
+            <p>Email: jgwebstudio@gmail.com</p>
+            <p>WhatsApp: +51 992 514 222</p>
+            <p>Ubicación: Lima, Perú</p>
             <p><em>Responderemos a todas las consultas en un plazo razonable.</em></p>
         </div>
 
@@ -418,9 +317,7 @@
         </p>
 
         <div style="text-align: center; padding-top: 20px; border-top: 3px solid #f0f0f0; margin-top: 40px;">
-            <a href="index.html" class="back-home">
-                <i class="fas fa-home"></i> Volver al Inicio
-            </a>
+            <a href="index.html" class="back-home">Volver al Inicio</a>
         </div>
         </div>
     </div>
@@ -440,9 +337,9 @@
                 <div class="footer-col">
                     <h4 class="section-tag1">Contactanos</h4>
                     <ul style="list-style: none; padding-left: 0;">
-                        <li>📧<a href="mailto:jgwebstudio@gmail.com"> jgwebstudio@gmail.com</a></li>
-                        <li><i class="fab fa-whatsapp"></i> <a href="https://wa.me/51992514222" target="_blank"> +51 992 514 222</a></li>
-                        <li>📍 Lima, Perú (Trabajo remoto)</li>
+                        <li><a href="mailto:jgwebstudio@gmail.com">jgwebstudio@gmail.com</a></li>
+                        <li><a href="https://wa.me/51992514222" target="_blank">+51 992 514 222</a></li>
+                        <li>Lima, Perú (Trabajo remoto)</li>
                     </ul>
                 </div>
                 <div class="footer-col">
