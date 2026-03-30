@@ -15,37 +15,43 @@ const contactForm = document.getElementById('contactForm');
 
 // Navbar scroll effect
 window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-    } else {
-        navbar.classList.remove('scrolled');
+    if (navbar) {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
     }
     
     // Mostrar/ocultar botón scroll to top
-    if (window.scrollY > 300) {
-        scrollTopBtn.classList.add('visible');
-    } else {
-        scrollTopBtn.classList.remove('visible');
+    if (scrollTopBtn) {
+        if (window.scrollY > 300) {
+            scrollTopBtn.classList.add('visible');
+        } else {
+            scrollTopBtn.classList.remove('visible');
+        }
     }
 });
 
 // Menú hamburguesa
-hamburger.addEventListener('click', () => {
-    navMenu.classList.toggle('active');
-    hamburger.classList.toggle('active');
-    
-    // Animación del hamburger
-    const spans = hamburger.querySelectorAll('span');
-    if (navMenu.classList.contains('active')) {
-        spans[0].style.transform = 'rotate(45deg) translateY(10px)';
-        spans[1].style.opacity = '0';
-        spans[2].style.transform = 'rotate(-45deg) translateY(-10px)';
-    } else {
-        spans[0].style.transform = 'none';
-        spans[1].style.opacity = '1';
-        spans[2].style.transform = 'none';
-    }
-});
+if (hamburger && navMenu) {
+    hamburger.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        hamburger.classList.toggle('active');
+        
+        // Animación del hamburger
+        const spans = hamburger.querySelectorAll('span');
+        if (navMenu.classList.contains('active')) {
+            spans[0].style.transform = 'rotate(45deg) translateY(10px)';
+            spans[1].style.opacity = '0';
+            spans[2].style.transform = 'rotate(-45deg) translateY(-10px)';
+        } else {
+            spans[0].style.transform = 'none';
+            spans[1].style.opacity = '1';
+            spans[2].style.transform = 'none';
+        }
+    });
+}
 
 // Smooth scroll y active link
 navLinks.forEach(link => {
@@ -59,12 +65,14 @@ navLinks.forEach(link => {
             
             if (targetSection) {
                 // Cerrar menú móvil si está abierto
-                navMenu.classList.remove('active');
-                hamburger.classList.remove('active');
-                const spans = hamburger.querySelectorAll('span');
-                spans[0].style.transform = 'none';
-                spans[1].style.opacity = '1';
-                spans[2].style.transform = 'none';
+                if (navMenu) navMenu.classList.remove('active');
+                if (hamburger) {
+                    hamburger.classList.remove('active');
+                    const spans = hamburger.querySelectorAll('span');
+                    spans[0].style.transform = 'none';
+                    spans[1].style.opacity = '1';
+                    spans[2].style.transform = 'none';
+                }
                 
                 // Scroll suave
                 const offsetTop = targetSection.offsetTop - 80;
@@ -104,12 +112,14 @@ window.addEventListener('scroll', () => {
 });
 
 // Scroll to top
-scrollTopBtn.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
+if (scrollTopBtn) {
+    scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
     });
-});
+}
 
 // ========================================
 // ANIMACIONES AL SCROLL
@@ -150,12 +160,13 @@ fadeInElements.forEach(el => {
 // FORMULARIO DE CONTACTO
 // ========================================
 
-contactForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const formMessage = document.getElementById('formMessage');
-    const submitBtn = contactForm.querySelector('button[type="submit"]');
-    const originalBtnText = submitBtn.innerHTML;
+if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formMessage = document.getElementById('formMessage');
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn.innerHTML;
     
     // Obtener datos del formulario
     const formData = {
@@ -214,7 +225,8 @@ contactForm.addEventListener('submit', async (e) => {
         submitBtn.disabled = false;
         submitBtn.innerHTML = originalBtnText;
     }
-});
+    });
+}
 
 function showFormMessage(message, type) {
     const formMessage = document.getElementById('formMessage');
@@ -364,3 +376,63 @@ if (newsletterForm) {
 console.log('%c¡Sitio Web Profesional Cargado! ', 'background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; font-size: 16px; padding: 10px; border-radius: 5px;');
 console.log('%cSi estás viendo esto, eres un desarrollador curioso 👨‍💻', 'color: #10b981; font-size: 12px;');
 console.log('%cEste sitio fue creado con HTML, CSS y JavaScript puro.', 'color: #6366f1; font-size: 12px;');
+
+// ========================================
+// SCROLL AUTOMÁTICO EN PÁGINAS LEGALES
+// ========================================
+
+// Detectar si estamos en política de privacidad o términos de servicio
+const currentPath = window.location.pathname;
+const isLegalPage = currentPath.includes('politica-privacidad') || currentPath.includes('terminos-servicio');
+
+console.log('%cRuta actual: ' + currentPath, 'color: #6366f1; font-size: 12px;');
+console.log('%c¿Es página legal?: ' + isLegalPage, 'color: #6366f1; font-size: 12px;');
+
+if (isLegalPage) {
+    let autoScrollInterval;
+    const scrollAmount = 70; // Píxeles por scroll
+    const scrollDelay = 1000; // 1 segundo entre scrolls
+    
+    // Función para hacer scroll automático
+    const autoScroll = () => {
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        const currentScroll = window.scrollY;
+        
+        console.log(`Scroll actual: ${currentScroll}px de ${maxScroll}px`);
+        
+        // Si no hemos llegado al final, continuar scrolling
+        if (currentScroll < maxScroll - 10) { // Margen de 10px por si acaso
+            window.scrollBy({
+                top: scrollAmount,
+                behavior: 'smooth'
+            });
+        } else {
+            // Al llegar al final, detener el scroll automático
+            clearInterval(autoScrollInterval);
+            console.log('%cScroll automático completado ✓', 'color: #10b981; font-size: 14px; font-weight: bold;');
+        }
+    };
+    
+    // Iniciar scroll automático después de 2 segundos
+    setTimeout(() => {
+        console.log('%cIniciando scroll automático...', 'color: #10b981; font-size: 14px; font-weight: bold;');
+        autoScrollInterval = setInterval(autoScroll, scrollDelay);
+    }, 2000);
+    
+    // Detener el scroll automático si el usuario interactúa con la página
+    const stopAutoScroll = () => {
+        if (autoScrollInterval) {
+            clearInterval(autoScrollInterval);
+            console.log('%cScroll automático detenido por interacción del usuario ⏸', 'color: #f59e0b; font-size: 14px; font-weight: bold;');
+            // Remover los event listeners para no seguir detectando
+            window.removeEventListener('wheel', stopAutoScroll);
+            window.removeEventListener('touchstart', stopAutoScroll);
+            window.removeEventListener('keydown', stopAutoScroll);
+        }
+    };
+    
+    // Eventos para detectar interacción del usuario
+    window.addEventListener('wheel', stopAutoScroll, { once: true });
+    window.addEventListener('touchstart', stopAutoScroll, { once: true });
+    window.addEventListener('keydown', stopAutoScroll, { once: true });
+}
