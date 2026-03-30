@@ -32,10 +32,14 @@ Sitio web corporativo de **J&G Web Studio**, un equipo de desarrollo web enfocad
 ```
 SitioWeb/
 │
-├── index.html          # Página principal
-├── styles.css          # Estilos globales
-├── script.js           # Lógica JavaScript
-├── README.md          # Documentación
+├── index.html                  # Página principal
+├── politica-privacidad.html   # Política de privacidad
+├── terminos-servicio.html     # Términos de servicio
+├── styles.css                  # Estilos globales
+├── script.js                   # Lógica JavaScript
+├── .htaccess                   # Configuración Apache (URLs limpias)
+├── README.md                   # Documentación
+├── INSTRUCTIONS.md            # Guía de despliegue
 │
 └── Public/
     └── img/
