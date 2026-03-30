@@ -50,11 +50,12 @@ hamburger.addEventListener('click', () => {
 // Smooth scroll y active link
 navLinks.forEach(link => {
     link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const targetId = link.getAttribute('href');
+        const targetHref = link.getAttribute('href');
         
-        if (targetId.startsWith('#')) {
-            const targetSection = document.querySelector(targetId);
+        // Solo prevenir default si es un hash en la misma página (sin archivo)
+        if (targetHref.startsWith('#')) {
+            e.preventDefault();
+            const targetSection = document.querySelector(targetHref);
             
             if (targetSection) {
                 // Cerrar menú móvil si está abierto
@@ -77,6 +78,7 @@ navLinks.forEach(link => {
                 link.classList.add('active');
             }
         }
+        // Si tiene archivo (index.html#inicio), dejar que navegue normalmente
     });
 });
 
