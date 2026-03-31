@@ -578,13 +578,19 @@ ul {
 }
 
 .about-img-wrapper {
-    width: 420px;
-    background: var(--gradient-primary);
+    width: 500px;
+    height: 500px;
     border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: var(--shadow-xl);
+}
+.about-img-wrapper img {
+    width: 90%;           /* Ancho de la imagen */
+    height: 90%;          /* Alto de la imagen */
+    object-fit: cover;     /* Para que la imagen cubra todo el espacio sin deformarse */
+    border-radius: 20px;   /* Para que mantenga los bordes redondeados */
 }
 
 .about-img-wrapper i {
