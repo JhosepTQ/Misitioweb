@@ -620,6 +620,8 @@
         // ============================================
         // CARGAR TODAS LAS CONVERSACIONES
         // ============================================
+        let processedMessages = new Set(); // Track para evitar duplicados
+
         function loadAllChats() {
             const chatsRef = database.ref('chats');
             
@@ -647,7 +649,38 @@
                 sessions.forEach(sessionId => {
                     const chatData = data[sessionId];
                     renderChatItem(sessionId, chatData);
+                    
+                    // Escuchar nuevos mensajes en TODAS las conversaciones
+                    listenForNewMessages(sessionId);
                 });
+            });
+        }
+
+        // ============================================
+        // ESCUCHAR NUEVOS MENSAJES GLOBALMENTE
+        // ============================================
+        function listenForNewMessages(sessionId) {
+            const messagesRef = database.ref(`chats/${sessionId}/messages`);
+            
+            messagesRef.on('child_added', (snapshot) => {
+                const messageData = snapshot.val();
+                const messageKey = `${sessionId}_${snapshot.key}`;
+                
+                // Solo procesar mensajes nuevos del cliente
+                if (messageData.sender === 'client' && !processedMessages.has(messageKey)) {
+                    processedMessages.add(messageKey);
+                    
+                    // Reproducir sonido para CUALQUIER mensaje del cliente
+                    playNotificationSound();
+                    
+                    // Marcar conversación como no leída si no está activa
+                    if (sessionId !== activeSessionId) {
+                        const chatItem = document.querySelector(`[data-session-id="${sessionId}"]`);
+                        if (chatItem) {
+                            chatItem.classList.add('unread');
+                        }
+                    }
+                }
             });
         }
 
@@ -696,6 +729,10 @@
             // Actualizar UI
             document.querySelectorAll('.chat-item').forEach(item => {
                 item.classList.remove('active');
+                // Quitar "no leído" de la conversación que se abre
+                if (item.dataset.sessionId === sessionId) {
+                    item.classList.remove('unread');
+                }
             });
             document.querySelector(`[data-session-id="${sessionId}"]`)?.classList.add('active');
 
@@ -725,16 +762,6 @@
 
             messagesRef.on('child_added', (snapshot) => {
                 const messageData = snapshot.val();
-                const messageId = snapshot.key;
-
-                // Reproducir sonido solo para nuevos mensajes del cliente
-                if (messageData.sender === 'client' && 
-                    lastMessageIds[sessionId] !== messageId &&
-                    sessionId === activeSessionId) {
-                    playNotificationSound();
-                }
-
-                lastMessageIds[sessionId] = messageId;
                 renderMessage(messageData);
             });
         }
