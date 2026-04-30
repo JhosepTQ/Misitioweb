@@ -436,3 +436,281 @@ if (isLegalPage) {
     window.addEventListener('touchstart', stopAutoScroll, { once: true });
     window.addEventListener('keydown', stopAutoScroll, { once: true });
 }
+
+// ========================================
+// CHATBOT FUNCTIONALITY - TIEMPO REAL CON FIREBASE
+// ========================================
+
+// Configuración de Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyAjW7ADWDbkZCdwx7E4gQcaCD36xSYwO-w",
+    authDomain: "jgwebestudio.firebaseapp.com",
+    databaseURL: "https://jgwebestudio-default-rtdb.firebaseio.com",
+    projectId: "jgwebestudio",
+    storageBucket: "jgwebestudio.firebasestorage.app",
+    messagingSenderId: "658405943934",
+    appId: "1:658405943934:web:9b9eba8480ac4879cdc62f"
+};
+
+// Inicializar Firebase solo si no está inicializado
+let firebaseApp;
+let database;
+let chatSessionId;
+let messagesRef;
+
+try {
+    if (typeof firebase !== 'undefined' && !firebase.apps.length) {
+        firebaseApp = firebase.initializeApp(firebaseConfig);
+        database = firebase.database();
+        console.log('%c🔥 Firebase inicializado correctamente', 'color: #f59e0b; font-size: 12px;');
+    } else if (firebase.apps.length > 0) {
+        firebaseApp = firebase.app();
+        database = firebase.database();
+    }
+} catch (error) {
+    console.warn('Firebase no está configurado correctamente. El chat funcionará en modo local.', error);
+}
+
+// Generar ID único de sesión para cada visitante
+function generateSessionId() {
+    const stored = localStorage.getItem('chatSessionId');
+    if (stored) {
+        return stored;
+    }
+    const newId = 'chat_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    localStorage.setItem('chatSessionId', newId);
+    return newId;
+}
+
+chatSessionId = generateSessionId();
+
+const chatbotButton = document.getElementById('chatbotButton');
+const chatbotWindow = document.getElementById('chatbotWindow');
+const chatbotClose = document.getElementById('chatbotClose');
+const chatbotInput = document.getElementById('chatbotInput');
+const chatbotSend = document.getElementById('chatbotSend');
+const chatbotMessages = document.getElementById('chatbotMessages');
+const quickOptions = document.querySelectorAll('.quick-option');
+
+let isFirebaseEnabled = false;
+
+// Inicializar referencia a la sesión de chat
+if (database) {
+    messagesRef = database.ref('chats/' + chatSessionId);
+    isFirebaseEnabled = true;
+    
+    // Marcar el inicio de la sesión
+    messagesRef.child('info').set({
+        startTime: firebase.database.ServerValue.TIMESTAMP,
+        status: 'active',
+        userAgent: navigator.userAgent,
+        page: window.location.href
+    });
+}
+
+// Abrir/cerrar chatbot
+if (chatbotButton) {
+    chatbotButton.addEventListener('click', () => {
+        chatbotWindow.classList.toggle('active');
+        if (chatbotWindow.classList.contains('active') && isFirebaseEnabled) {
+            loadPreviousMessages();
+        }
+    });
+}
+
+if (chatbotClose) {
+    chatbotClose.addEventListener('click', () => {
+        chatbotWindow.classList.remove('active');
+    });
+}
+
+// Función para agregar mensaje en la interfaz
+function addMessage(text, isBot = true, timestamp = null) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${isBot ? 'bot-message' : 'user-message'}`;
+    
+    const messageContent = document.createElement('div');
+    messageContent.className = 'message-content';
+    
+    const messageParagraph = document.createElement('p');
+    messageParagraph.textContent = text;
+    messageContent.appendChild(messageParagraph);
+    
+    const messageTime = document.createElement('span');
+    messageTime.className = 'message-time';
+    messageTime.textContent = timestamp ? formatTime(timestamp) : 'Ahora';
+    
+    messageDiv.appendChild(messageContent);
+    messageDiv.appendChild(messageTime);
+    
+    chatbotMessages.appendChild(messageDiv);
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+}
+
+// Formatear timestamp
+function formatTime(timestamp) {
+    const date = new Date(timestamp);
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    return `${hours}:${minutes}`;
+}
+
+// Cargar mensajes previos de Firebase
+function loadPreviousMessages() {
+    if (!isFirebaseEnabled) return;
+    
+    // Limpiar mensajes actuales excepto el de bienvenida
+    const welcomeMessage = chatbotMessages.querySelector('.bot-message');
+    chatbotMessages.innerHTML = '';
+    if (welcomeMessage) {
+        chatbotMessages.appendChild(welcomeMessage);
+    }
+    
+    messagesRef.child('messages').orderByChild('timestamp').once('value', (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+            const message = childSnapshot.val();
+            addMessage(message.text, message.isBot, message.timestamp);
+        });
+    });
+}
+
+// Escuchar nuevos mensajes en tiempo real
+if (isFirebaseEnabled) {
+    let lastProcessedKey = null;
+    
+    messagesRef.child('messages').on('child_added', (snapshot) => {
+        const message = snapshot.val();
+        const messageKey = snapshot.key;
+        
+        // Evitar procesar el mismo mensaje dos veces
+        if (lastProcessedKey === messageKey) return;
+        lastProcessedKey = messageKey;
+        
+        // Solo agregar si es del admin
+        if (message.sender === 'admin' || message.fromAdmin) {
+            // Verificar que no esté ya en el DOM
+            const existingMessages = Array.from(chatbotMessages.querySelectorAll('.message-content p'));
+            const isDuplicate = existingMessages.some(msg => msg.textContent === message.text);
+            
+            if (!isDuplicate) {
+                addMessage(message.text, true, message.timestamp);
+            }
+        }
+    });
+}
+
+// Función para mostrar indicador de escritura
+function showTypingIndicator() {
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'message bot-message typing-message';
+    typingDiv.innerHTML = `
+        <div class="typing-indicator">
+            <span class="typing-dot"></span>
+            <span class="typing-dot"></span>
+            <span class="typing-dot"></span>
+        </div>
+    `;
+    chatbotMessages.appendChild(typingDiv);
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    return typingDiv;
+}
+
+// Función para guardar mensaje en Firebase
+function saveMessageToFirebase(text, isBot = false, fromAdmin = false) {
+    if (!isFirebaseEnabled) {
+        console.warn('Firebase no disponible. Mensaje no guardado.');
+        return;
+    }
+    
+    const messageData = {
+        text: text,
+        sender: fromAdmin ? 'admin' : 'client',
+        timestamp: Date.now()
+    };
+    
+    messagesRef.child('messages').push(messageData);
+    
+    // Actualizar última actividad
+    messagesRef.child('info').update({
+        lastActivity: Date.now(),
+        lastMessage: text.substring(0, 100)
+    });
+    
+}
+
+// Nota: Las notificaciones al admin se gestionan desde el panel admin-chat.html
+// que escucha los mensajes en tiempo real mediante Firebase
+
+// ========================================
+// GESTIÓN DE MENSAJES
+// ========================================
+
+// Función para enviar mensaje
+function sendMessage() {
+    const userMessage = chatbotInput.value.trim();
+    
+    if (userMessage === '') return;
+    
+    // Agregar mensaje del usuario en la interfaz
+    addMessage(userMessage, false);
+    chatbotInput.value = '';
+    
+    // Guardar en Firebase
+    saveMessageToFirebase(userMessage, false, false);
+    
+    // Ocultar opciones rápidas después del primer mensaje
+    const quickOptionsContainer = document.getElementById('quickOptions');
+    if (quickOptionsContainer && quickOptionsContainer.style.display !== 'none') {
+        quickOptionsContainer.style.display = 'none';
+    }
+    
+    // Actualizar estado de la conversación en Firebase
+    if (isFirebaseEnabled) {
+        messagesRef.child('info').update({
+            hasUnreadMessages: true,
+            status: 'waiting_response'
+        });
+    }
+}
+
+// Event listeners para enviar mensaje
+if (chatbotSend) {
+    chatbotSend.addEventListener('click', sendMessage);
+}
+
+if (chatbotInput) {
+    chatbotInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            sendMessage();
+        }
+    });
+}
+
+// Opciones rápidas
+quickOptions.forEach(option => {
+    option.addEventListener('click', () => {
+        const message = option.dataset.message;
+        chatbotInput.value = message;
+        sendMessage();
+    });
+});
+
+// Cerrar chatbot al hacer clic fuera
+document.addEventListener('click', (e) => {
+    if (chatbotWindow && chatbotButton) {
+        const isClickInside = chatbotWindow.contains(e.target) || chatbotButton.contains(e.target);
+        if (!isClickInside && chatbotWindow.classList.contains('active')) {
+            chatbotWindow.classList.remove('active');
+        }
+    }
+});
+
+// Sonido de notificación
+function playNotificationSound() {
+    const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIGWm98OScTgwOUKjj8LVjHAU7k9nyy3k=');
+    audio.volume = 0.3;
+    audio.play().catch(e => console.log('No se pudo reproducir el sonido'));
+}
+
+console.log('%c💬 Chatbot en tiempo real cargado', 'background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; font-size: 14px; padding: 8px; border-radius: 5px;');
+console.log('%cID de sesión: ' + chatSessionId, 'color: #6366f1; font-size: 12px;');

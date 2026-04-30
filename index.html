@@ -18,6 +18,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- CSS -->
     <link rel="stylesheet" href="styles.css">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 </head>
 <body>
     
@@ -62,7 +66,7 @@
                         <i class="fas fa-star"></i>
                     </div>
                     <span class="social-divider">|</span>
-                    <span class="social-text">Basado en 2 proyectos completados</span>
+                    <span class="social-text">Basado en 3 proyectos completados</span>
                     <span class="social-divider">|</span>
                     <span class="social-text">📍 Lima, Perú</span>
                 </div>
@@ -747,7 +751,7 @@
             <div class="footer-content">
                 <div class="footer-col">
                     <div class="logo">
-                        <i><img src="Public/img/logoblanco.png" alt=""></i>
+                        <i><img src="Public/img/logoblanco.png" alt=""></i><br><br><br>
                         <span class="fot">J&G <strong>Web Studio</strong></strong>
                     </div>
                     <p><i>Transformando ideas en experiencias digitales que impulsan negocios.</i></p>
@@ -803,6 +807,70 @@
     <button class="scroll-top" id="scrollTop">
         <i class="fas fa-arrow-up"></i>
     </button>
+
+    <!-- Chatbot Widget -->
+    <div class="chatbot-container">
+        <!-- Botón flotante del chat -->
+        <div class="chatbot-button" id="chatbotButton">
+            <div class="chatbot-icon">
+                <i class="fas fa-comment-dots"></i>
+            </div>
+            <div class="chatbot-pulse"></div>
+        </div>
+
+        <!-- Ventana del chat -->
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <div class="chatbot-header-info">
+                    <div class="chatbot-avatar">
+                        <i class="fas fa-robot"></i>
+                        <span class="status-indicator"></span>
+                    </div>
+                    <div class="chatbot-details">
+                        <h4>Chat J&G Web Studio</h4>
+                        <span class="status-text">Disponible ahora</span>
+                    </div>
+                </div>
+                <button class="chatbot-close" id="chatbotClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="message bot-message">
+                    <div class="message-content">
+                        <p>Hola, estoy conectada, ¿de qué modo te puedo ayudar?</p>
+                    </div>
+                    <span class="message-time">Ahora</span>
+                </div>
+            </div>
+
+            <div class="chatbot-quick-options" id="quickOptions">
+                <button class="quick-option" data-message="Quiero información sobre servicios">
+                    <i class="fas fa-info-circle"></i> Servicios
+                </button>
+                <button class="quick-option" data-message="¿Cuáles son los precios?">
+                    <i class="fas fa-dollar-sign"></i> Precios
+                </button>
+                <button class="quick-option" data-message="Quiero hablar con alguien">
+                    <i class="fas fa-user"></i> Hablar con alguien
+                </button>
+            </div>
+
+            <div class="chatbot-input-area">
+                <input 
+                    type="text" 
+                    class="chatbot-input" 
+                    id="chatbotInput" 
+                    placeholder="Escribe un mensaje..."
+                    autocomplete="off"
+                >
+                <button class="chatbot-send" id="chatbotSend">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- JavaScript -->
     <script src="script.js"></script>

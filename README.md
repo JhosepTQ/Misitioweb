@@ -1,165 +1,163 @@
-# J&G Web Studio - Sitio Web Corporativo
+# 🌐 J&G Web Studio - Sitio Web Profesional
 
-![Estado](https://img.shields.io/badge/Estado-En%20Desarrollo-yellow)
-![Versión](https://img.shields.io/badge/Versi%C3%B3n-1.0.0-blue)
+Sitio web corporativo para J&G Web Studio con sistema de chat en tiempo real integrado.
 
-## 📝 Descripción
+## ✨ Características
 
-Sitio web corporativo de **J&G Web Studio**, un equipo de desarrollo web enfocado en crear páginas profesionales para emprendedores y pequeñas empresas. Este proyecto presenta nuestros servicios, portafolio y valores como empresa emergente en el mercado digital.
+- 🎨 Diseño moderno y responsive
+- 💬 Chat en tiempo real con Firebase
+- 👨‍💼 Panel de administración para gestionar conversaciones
+- 📱 Compatible con dispositivos móviles
+- ⚡ Carga rápida y optimizada
 
-## 🚀 Características
-
-- ✅ Diseño moderno y profesional
-- ✅ 100% responsive (móvil, tablet, desktop)
-- ✅ Animaciones suaves con Intersection Observer
-- ✅ Formulario de contacto con validación
-- ✅ Navegación smooth scroll
-- ✅ Menú hamburguesa para móviles
-- ✅ Botón flotante de WhatsApp
-- ✅ Optimización SEO básica
-- ✅ Efectos parallax y hover 3D
-
-## 🛠️ Tecnologías Utilizadas
-
-- **HTML5** - Estructura semántica
-- **CSS3** - Estilos con variables CSS y grid/flexbox
-- **JavaScript vanilla** - Interactividad y animaciones
-- **Font Awesome 6.4** - Iconografía
-- **Google Fonts** - Tipografías Heebo, Nunito, Pacifico, Poppins
-
-## 📂 Estructura del Proyecto
+## 📁 Estructura del Proyecto
 
 ```
 SitioWeb/
-│
-├── index.html                  # Página principal
-├── politica-privacidad.html   # Política de privacidad
-├── terminos-servicio.html     # Términos de servicio
-├── styles.css                  # Estilos globales
-├── script.js                   # Lógica JavaScript
-├── .htaccess                   # Configuración Apache (URLs limpias)
-├── README.md                   # Documentación
-├── INSTRUCTIONS.md            # Guía de despliegue
-│
+├── index.html              # Página principal
+├── admin-chat.html         # Panel de administración del chat
+├── script.js               # Funcionalidad del chat y sitio
+├── styles.css              # Estilos del sitio
+├── politica-privacidad.html
+├── terminos-servicio.html
 └── Public/
-    └── img/
-        ├── logo.png
-        ├── logoblanco.png
-        ├── ico12.ico
-        ├── gym.jpg
-        └── landing.jpg
+    └── img/                # Imágenes del sitio
 ```
 
-## 🎨 Secciones del Sitio
+## 🚀 Configuración Rápida
 
-1. **Hero** - Presentación principal con llamados a la acción
-2. **Nosotros** - Información sobre el equipo y enfoque
-3. **Servicios** - Landing pages, sitios corporativos, rediseño, hosting
-4. **Portafolio** - Proyectos realizados y ejemplos
-5. **Beneficios** - Ventajas de trabajar con nosotros
-6. **Testimonios** - Nuestro compromiso y valores
-7. **Contacto** - Formulario y métodos de contacto
+### 1. Configurar Firebase
 
-## 📦 Instalación y Uso
+1. Ve a [Firebase Console](https://console.firebase.google.com)
+2. Crea un proyecto o selecciona uno existente
+3. Activa **Realtime Database** en modo de prueba
+4. Obtén las credenciales de configuración
 
-### Desarrollo Local
+### 2. Actualizar Credenciales
 
-1. Clona este repositorio:
-```bash
-git clone https://github.com/tuusuario/jg-web-studio.git
+Edita las credenciales de Firebase en **dos archivos**:
+
+#### En `script.js` (línea ~445):
+```javascript
+const firebaseConfig = {
+    apiKey: "TU_API_KEY",
+    authDomain: "tu-proyecto.firebaseapp.com",
+    databaseURL: "https://tu-proyecto-default-rtdb.firebaseio.com",
+    projectId: "tu-proyecto",
+    storageBucket: "tu-proyecto.firebasestorage.app",
+    messagingSenderId: "123456789",
+    appId: "1:123456789:web:abc123"
+};
 ```
 
-2. Navega a la carpeta del proyecto:
-```bash
-cd jg-web-studio
+#### En `admin-chat.html` (línea ~637):
+```javascript
+// Usa las mismas credenciales
 ```
 
-3. Abre `index.html` en tu navegador favorito o usa un servidor local:
-```bash
-# Con Python 3
-python -m http.server 8000
+### 3. Probar Localmente
 
-# Con Node.js (http-server)
-npx http-server
+Abre dos ventanas del navegador:
+
+```powershell
+# Ventana 1: Sitio web (cliente)
+start index.html
+
+# Ventana 2: Panel admin
+start admin-chat.html
 ```
 
-4. Visita `http://localhost:8000` en tu navegador
+**Prueba:**
+1. Escribe un mensaje en el chat de `index.html`
+2. Verás aparecer el mensaje en `admin-chat.html`
+3. Responde desde el panel admin
+4. La respuesta aparecerá instantáneamente en el chat del cliente
+
+## 📱 Uso del Panel Admin
+
+### Características del Panel:
+- ✅ Lista de conversaciones activas
+- 🔔 Notificaciones de sonido
+- 💬 Respuestas en tiempo real
+- 🔍 Búsqueda de conversaciones
+- 📊 Historial completo de mensajes
+
+### Respuestas Rápidas:
+- 👋 Saludo
+- ⏱️ En un momento
+- ❓ Más preguntas
+- ✅ Perfecto
+
+## 🔐 Seguridad
+
+### Reglas de Firebase (Modo Desarrollo):
+```json
+{
+  "rules": {
+    ".read": true,
+    ".write": true
+  }
+}
+```
+
+⚠️ **Para producción**, actualiza las reglas para mayor seguridad:
+```json
+{
+  "rules": {
+    "chats": {
+      "$chatId": {
+        ".read": true,
+        ".write": true
+      }
+    }
+  }
+}
+```
 
 ## 🌐 Despliegue
 
-### Opciones Gratuitas Recomendadas:
+### Opciones de Hosting Gratuito:
 
-**Netlify (Recomendado)**
-```bash
-# Instalar Netlify CLI
-npm install -g netlify-cli
+1. **Netlify** (Recomendado)
+   - Arrastra la carpeta del proyecto
+   - Configuración automática
+   - SSL gratis
 
-# Desplegar
-netlify deploy --prod
-```
+2. **Vercel**
+   - Conecta con GitHub
+   - Deploy automático
+   - Dominio personalizado gratis
 
-**Vercel**
-```bash
-# Instalar Vercel CLI
-npm install -g vercel
+3. **GitHub Pages**
+   - Sube el proyecto a GitHub
+   - Activa Pages en Settings
+   - Dominio: `usuario.github.io`
 
-# Desplegar
-vercel --prod
-```
+## 🛠️ Archivos Importantes
 
-**GitHub Pages**
-1. Crea un repositorio en GitHub
-2. Sube los archivos
-3. Ve a Settings > Pages
-4. Selecciona la rama main y guarda
+### Para el Sitio Web:
+- `index.html` - Página principal con chat integrado
+- `styles.css` - Todos los estilos
+- `script.js` - Funcionalidad del chat y Firebase
+- `Public/img/` - Imágenes y recursos
 
-## ✉️ Configuración del Formulario
+### Para Administración:
+- `admin-chat.html` - Panel completo para responder chats
 
-Actualmente el formulario está en modo simulación. Para hacerlo funcional:
+**Nota:** El archivo `admin-chat.html` **NO debe ser accesible públicamente**. Súbelo en una carpeta protegida o úsalo solo localmente.
 
-### Opción 1: FormSubmit (Gratis, sin código)
-```html
-<form action="https://formsubmit.co/jgwebstudio@gmail.com" method="POST">
-    <!-- Tus campos del formulario -->
-</form>
-```
+## 📞 Soporte
 
-### Opción 2: EmailJS (Gratis, 200 emails/mes)
-1. Crea cuenta en [emailjs.com](https://www.emailjs.com/)
-2. Configura un servicio de email
-3. Copia las credenciales y actualiza `script.js`
-
-### Opción 3: Backend propio
-- Node.js + Express + Nodemailer
-- PHP con PHPMailer
-- Python con Flask + SMTP
-
-## 📱 Contacto
-
-- **WhatsApp**: [+51 992 514 222](https://wa.me/51992514222)
-- **Email**: jgwebstudio@gmail.com
-- **Ubicación**: Lima, Perú
-
-## 🔄 Próximas Mejoras
-
-- [ ] Integración real del formulario de contacto
-- [ ] Agregar Google Analytics
-- [ ] Configurar dominio personalizado
-- [ ] Crear perfiles en redes sociales
-- [ ] Implementar blog para SEO
-- [ ] Agregar más proyectos al portafolio
-- [ ] Sistema de CMS para actualizaciones fáciles
-- [ ] Modo oscuro/claro
+Si tienes dudas sobre la configuración:
+1. Revisa que las credenciales de Firebase sean correctas
+2. Verifica que Realtime Database esté activa
+3. Asegúrate de que las reglas permitan lectura/escritura
+4. Abre la consola del navegador (F12) para ver errores
 
 ## 📄 Licencia
 
-Este proyecto es propiedad de **J&G Web Studio** © 2026. Todos los derechos reservados.
-
-## 👥 Autores
-
-**J&G Web Studio Team**
-- Equipo de desarrollo web enfocado en soluciones accesibles y de calidad
+© 2026 J&G Web Studio. Todos los derechos reservados.
 
 ---
 
-⭐ **¿Te gustó nuestro trabajo?** ¡Contáctanos para crear tu próximo proyecto web!
+**Desarrollado con ❤️ por J&G Web Studio**
