@@ -1,0 +1,19 @@
+{
+  "ai_enabled": false,
+  "api_key": "",
+  "model": "gemini-2.5-flash",
+  "temperature": 0.7,
+  "max_response_length": 300,
+  "empresa": {
+    "nombre": "J&G Web Studio",
+    "ubicacion": "Lima, Perú",
+    "horario": "Lunes a Viernes 9am - 6pm",
+    "telefono": "",
+    "email": "",
+    "website": ""
+  },
+  "servicios": [],
+  "faq": [],
+  "prompt_system": "Eres un asistente virtual profesional de J&G Web Studio. Responde de forma clara, amable y útil. Si falta información concreta, invitar a contactar al equipo humano.",
+  "documents": []
+}

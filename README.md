@@ -1,178 +1,64 @@
-# 🌐 J&G Web Studio - Sitio Web Profesional
+# J&G Web Studio - Chat con IA
 
-Sitio web corporativo para J&G Web Studio con sistema de chat bidireccional integrado.
+Sitio web corporativo con chat en tiempo real, panel admin y respuestas automáticas con Gemini.
 
-## ✨ Características
+## Requisitos de hosting
 
-- 🎨 Diseño moderno y responsive
-- 💬 Chat bidireccional en tiempo real
-- 👨‍💼 Panel de administración para gestionar conversaciones
-- 📱 Compatible con dispositivos móviles
-- ⚡ Sistema simple con PHP + JSON (sin dependencias externas)
-- 🔔 Notificaciones de sonido para el admin
-- 🚀 Fácil de desplegar en cualquier hosting con PHP
+- PHP 7.4 o superior
+- Extensión cURL habilitada
+- Extensión fileinfo habilitada
+- Permisos de escritura en la carpeta del proyecto
 
-## 📁 Estructura del Proyecto
+No funciona en GitHub Pages, Netlify o Vercel estático porque este proyecto usa PHP.
 
-```
-SitioWeb/
-├── index.html                  # Página principal
-├── admin-chat-simple.html      # Panel de administración del chat
-├── chat-api.php                # API REST para el chat
-├── chat-data.json              # Base de datos en JSON
-├── script.js                   # Funcionalidad del chat y sitio
-├── styles.css                  # Estilos del sitio
-├── CHAT-SETUP.md               # Documentación del sistema de chat
-├── politica-privacidad.html
-├── terminos-servicio.html
-└── Public/
-    └── img/                    # Imágenes del sitio
-```
+## Archivos principales
 
-## 🚀 Configuración Rápida
+- index.html
+- admin-chat-simple.html
+- script.js
+- styles.css
+- chat-api.php
+- ai-handler.php
+- upload-document.php
+- config-utils.php
 
-### 1. Requisitos
+## Instalación en hosting
 
-- ✅ Servidor con PHP 7.0 o superior
-- ✅ Permisos de escritura en la carpeta del proyecto
-- ❌ NO requiere Node.js
-- ❌ NO requiere Firebase
-- ❌ NO requiere base de datos MySQL
+1. Sube todos los archivos al hosting.
+2. Verifica que exista la carpeta ai-documents con permisos de escritura.
+3. Entra al panel admin y configura la API Key de Gemini desde la interfaz.
+4. Prueba el chat cliente y la respuesta automática.
 
-### 2. Instalación
+El sistema ya se auto-inicializa:
+- Si ai-config.json no existe o está vacío, se crea automáticamente con valores por defecto.
+- Si chat-data.json no existe, se crea automáticamente.
 
-1. **Subir archivos al servidor:**
-   ```bash
-   # Sube todos los archivos a tu hosting
-   ```
+## Seguridad recomendada
 
-2. **Dar permisos al archivo JSON:**
-   ```bash
-   chmod 666 chat-data.json
-   ```
+- No subas ai-config.json al repositorio público.
+- No subas chat-data.json al repositorio público.
+- Protege admin-chat-simple.html con contraseña en tu hosting (.htaccess o panel del proveedor).
+- El proyecto incluye .htaccess para bloquear acceso directo a archivos sensibles.
 
-3. **Acceder al sitio:**
-   ```
-   https://tu-dominio.com
-   ```
+## Variables y persistencia
 
-### 3. Probar Localmente
+- Mensajes: chat-data.json
+- Configuración IA: ai-config.json
+- Control de cooldown: ai-cooldown.json
+- Documentos subidos: ai-documents/
 
-Abre una terminal en la carpeta del proyecto:
+## Prueba local
 
-```powershell
-# Iniciar servidor PHP local
+Desde la carpeta del proyecto:
+
 php -S localhost:8000
-```
 
-Abre dos ventanas del navegador:
-- **Cliente:** http://localhost:8000
-- **Admin:** http://localhost:8000/admin-chat-simple.html
+Luego abre:
+- http://localhost:8000/index.html
+- http://localhost:8000/admin-chat-simple.html
 
-**Prueba:**
-1. Escribe un mensaje en el chat del sitio web
-2. Verás aparecer el mensaje en el panel admin (máximo 3 segundos)
-3. Responde desde el panel admin
-4. La respuesta aparecerá en el chat del cliente (máximo 3 segundos)
+## Solución rápida de errores comunes
 
-## 💬 Sistema de Chat
-
-### Funcionamiento:
-- **Polling:** El sistema consulta cada 3 segundos si hay mensajes nuevos
-- **Sesiones:** Cada visitante tiene un ID único almacenado en localStorage
-- **Persistencia:** Los mensajes se guardan en `chat-data.json`
-- **Tiempo real:** Respuestas visibles en máximo 3 segundos
-
-### Características del Panel Admin:
-- ✅ Lista de conversaciones activas
-- 🔔 Notificaciones de sonido cuando llegan mensajes
-- 💬 Respuestas en tiempo real
-- 📊 Historial completo de mensajes
-- 🗑️ Eliminar conversaciones
-- ⏱️ Actualización automática cada 3 segundos
-
-## 🔐 Seguridad
-
-### Proteger el Panel Admin:
-
-**Opción 1: Renombrar el archivo**
-```bash
-mv admin-chat-simple.html admin-secreto-xyz123.html
-```
-
-**Opción 2: Proteger con contraseña (.htaccess)**
-```apache
-<Files "admin-chat-simple.html">
-    AuthType Basic
-    AuthName "Área Restringida"
-    AuthUserFile /ruta/completa/.htpasswd
-    Require valid-user
-</Files>
-```
-
-## 📖 Documentación Completa
-
-Para más detalles sobre el sistema de chat, lee [CHAT-SETUP.md](CHAT-SETUP.md)
-```
-
-⚠️ **Para producción**, actualiza las reglas para mayor seguridad:
-```json
-{
-  "rules": {
-    "chats": {
-      "$chatId": {
-        ".read": true,
-        ".write": true
-      }
-    }
-  }
-}
-```
-
-## 🌐 Despliegue
-
-### Opciones de Hosting Gratuito:
-
-1. **Netlify** (Recomendado)
-   - Arrastra la carpeta del proyecto
-   - Configuración automática
-   - SSL gratis
-
-2. **Vercel**
-   - Conecta con GitHub
-   - Deploy automático
-   - Dominio personalizado gratis
-
-3. **GitHub Pages**
-   - Sube el proyecto a GitHub
-   - Activa Pages en Settings
-   - Dominio: `usuario.github.io`
-
-## 🛠️ Archivos Importantes
-
-### Para el Sitio Web:
-- `index.html` - Página principal con chat integrado
-- `styles.css` - Todos los estilos
-- `script.js` - Funcionalidad del chat y Firebase
-- `Public/img/` - Imágenes y recursos
-
-### Para Administración:
-- `admin-chat.html` - Panel completo para responder chats
-
-**Nota:** El archivo `admin-chat.html` **NO debe ser accesible públicamente**. Súbelo en una carpeta protegida o úsalo solo localmente.
-
-## 📞 Soporte
-
-Si tienes dudas sobre la configuración:
-1. Revisa que las credenciales de Firebase sean correctas
-2. Verifica que Realtime Database esté activa
-3. Asegúrate de que las reglas permitan lectura/escritura
-4. Abre la consola del navegador (F12) para ver errores
-
-## 📄 Licencia
-
-© 2026 J&G Web Studio. Todos los derechos reservados.
-
----
-
-**Desarrollado con ❤️ por J&G Web Studio**
+- Error al responder IA: revisa cURL habilitado y API Key correcta.
+- Error al subir PDF: revisa fileinfo y permisos de escritura.
+- No guarda mensajes: revisa permisos de chat-data.json y carpeta del proyecto.

@@ -6,6 +6,7 @@
 // No requiere Firebase ni servicios externos
 
 require_once __DIR__ . '/debug-log.php';
+require_once __DIR__ . '/config-utils.php';
 
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
@@ -23,7 +24,7 @@ $chatDataFile = __DIR__ . '/chat-data.json';
 
 // Crear archivo si no existe
 if (!file_exists($chatDataFile)) {
-    file_put_contents($chatDataFile, json_encode(['sessions' => []]));
+    file_put_contents($chatDataFile, json_encode(['sessions' => []]), LOCK_EX);
     chmod($chatDataFile, 0666);
 }
 
@@ -38,17 +39,13 @@ function readChatData($file) {
 
 // Función para guardar datos
 function saveChatData($file, $data) {
-    return file_put_contents($file, json_encode($data, JSON_PRETTY_PRINT));
+    return file_put_contents($file, json_encode($data, JSON_PRETTY_PRINT), LOCK_EX);
 }
 
 // Función para verificar si la IA debe responder
 function shouldAIRespond() {
     $configFile = __DIR__ . '/ai-config.json';
-    if (!file_exists($configFile)) {
-        error_log("[shouldAIRespond] Archivo ai-config.json NO existe");
-        return false;
-    }
-    $config = json_decode(file_get_contents($configFile), true);
+    $config = loadAIConfig($configFile);
     $ai_enabled = $config['ai_enabled'] ?? false;
     $has_api_key = !empty($config['api_key']);
     
@@ -101,12 +98,7 @@ function generateAIResponse($sessionId, $message, $conversationHistory) {
     
     // Cargar configuración de IA
     $configFile = __DIR__ . '/ai-config.json';
-    if (!file_exists($configFile)) {
-        error_log("[generateAIResponse] ❌ No existe ai-config.json");
-        return null;
-    }
-    
-    $config = json_decode(file_get_contents($configFile), true);
+    $config = loadAIConfig($configFile);
     
     if (!$config['ai_enabled']) {
         error_log("[generateAIResponse] ❌ IA no está activada");
@@ -123,7 +115,10 @@ function generateAIResponse($sessionId, $message, $conversationHistory) {
     $context = "\n\nEMPRESA: {$config['empresa']['nombre']} en {$config['empresa']['ubicacion']}\n";
     $context .= "Horario: {$config['empresa']['horario']}\n\n";
     $context .= "SERVICIOS DISPONIBLES:\n";
-    foreach ($config['servicios'] as $servicio) {
+    foreach (($config['servicios'] ?? []) as $servicio) {
+        if (!is_array($servicio)) {
+            continue;
+        }
         $context .= "- {$servicio['nombre']}: {$servicio['precio']}\n";
         $context .= "  {$servicio['descripcion']}\n\n";
     }
@@ -160,6 +155,11 @@ function generateAIResponse($sessionId, $message, $conversationHistory) {
         ]
     ];
     
+    if (!function_exists('curl_init')) {
+        error_log("[generateAIResponse] ❌ cURL no está disponible en este hosting");
+        return null;
+    }
+
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POST, true);

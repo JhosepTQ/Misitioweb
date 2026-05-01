@@ -8,6 +8,8 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, DELETE, GET, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
 
+require_once __DIR__ . '/config-utils.php';
+
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit;
@@ -24,16 +26,13 @@ if (!file_exists($documentsDir)) {
 // Cargar configuración
 function loadConfig() {
     global $configFile;
-    if (!file_exists($configFile)) {
-        return ['documents' => []];
-    }
-    return json_decode(file_get_contents($configFile), true);
+    return loadAIConfig($configFile);
 }
 
 // Guardar configuración
 function saveConfig($config) {
     global $configFile;
-    return file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    return saveAIConfig($configFile, $config);
 }
 
 // Extraer texto de PDF (simple)
@@ -122,7 +121,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['document'])) {
         'id' => uniqid(),
         'name' => $file['name'],
         'filename' => $uniqueName,
-        'path' => $filePath,
         'size' => $file['size'],
         'type' => $mimeType,
         'uploaded' => time(),
@@ -188,8 +186,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE' || (isset($_GET['action']) && $_GET[
     foreach ($config['documents'] ?? [] as $key => $doc) {
         if ($doc['id'] === $documentId) {
             // Eliminar archivo físico
-            if (file_exists($doc['path'])) {
-                unlink($doc['path']);
+            $storedPath = '';
+            if (!empty($doc['filename'])) {
+                $storedPath = $documentsDir . '/' . $doc['filename'];
+            } elseif (!empty($doc['path'])) {
+                // Compatibilidad con documentos guardados en formato anterior.
+                $storedPath = $doc['path'];
+            }
+
+            if (!empty($storedPath) && file_exists($storedPath)) {
+                unlink($storedPath);
             }
             
             // Eliminar de configuración

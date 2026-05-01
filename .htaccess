@@ -1,0 +1,12 @@
+Options -Indexes
+
+<FilesMatch "^(ai-config\.json|chat-data\.json|ai-cooldown\.json|debug\.log)$">
+    Require all denied
+</FilesMatch>
+
+<IfModule !mod_authz_core.c>
+    <FilesMatch "^(ai-config\.json|chat-data\.json|ai-cooldown\.json|debug\.log)$">
+        Order allow,deny
+        Deny from all
+    </FilesMatch>
+</IfModule>

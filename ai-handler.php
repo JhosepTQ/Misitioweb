@@ -9,6 +9,10 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
 
+require_once __DIR__ . '/config-utils.php';
+
+$aiConfigFile = __DIR__ . '/ai-config.json';
+
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit;
@@ -16,17 +20,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 // Cargar configuración
 function loadConfig() {
-    $configFile = __DIR__ . '/ai-config.json';
-    if (!file_exists($configFile)) {
-        return null;
-    }
-    return json_decode(file_get_contents($configFile), true);
+    global $aiConfigFile;
+    return loadAIConfig($aiConfigFile);
 }
 
 // Guardar configuración
 function saveConfig($config) {
-    $configFile = __DIR__ . '/ai-config.json';
-    return file_put_contents($configFile, json_encode($config, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    global $aiConfigFile;
+    return saveAIConfig($aiConfigFile, $config);
 }
 
 // Obtener estado de la IA
@@ -181,14 +182,20 @@ function buildContext($config) {
     $context .= "Horario: {$config['empresa']['horario']}\n\n";
     
     $context .= "SERVICIOS DISPONIBLES:\n";
-    foreach ($config['servicios'] as $servicio) {
+    foreach (($config['servicios'] ?? []) as $servicio) {
+        if (!is_array($servicio)) {
+            continue;
+        }
         $context .= "- {$servicio['nombre']}: {$servicio['precio']}\n";
         $context .= "  {$servicio['descripcion']}\n";
         $context .= "  Tiempo de entrega: {$servicio['tiempo_entrega']}\n\n";
     }
     
     $context .= "PREGUNTAS FRECUENTES:\n";
-    foreach ($config['faq'] as $faq) {
+    foreach (($config['faq'] ?? []) as $faq) {
+        if (!is_array($faq)) {
+            continue;
+        }
         $context .= "P: {$faq['pregunta']}\n";
         $context .= "R: {$faq['respuesta']}\n\n";
     }
@@ -210,6 +217,13 @@ function buildContext($config) {
 // Llamar a Gemini API
 function callGeminiAPI($apiKey, $prompt, $config) {
     $url = "https://generativelanguage.googleapis.com/v1/models/{$config['model']}:generateContent?key=$apiKey";
+
+    if (!function_exists('curl_init')) {
+        return [
+            'success' => false,
+            'error' => 'cURL no está habilitado en el servidor'
+        ];
+    }
     
     error_log("[callGeminiAPI] URL: $url");
     error_log("[callGeminiAPI] Modelo: {$config['model']}");
