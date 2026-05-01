@@ -1,103 +1,118 @@
 # 🌐 J&G Web Studio - Sitio Web Profesional
 
-Sitio web corporativo para J&G Web Studio con sistema de chat en tiempo real integrado.
+Sitio web corporativo para J&G Web Studio con sistema de chat bidireccional integrado.
 
 ## ✨ Características
 
 - 🎨 Diseño moderno y responsive
-- 💬 Chat en tiempo real con Firebase
+- 💬 Chat bidireccional en tiempo real
 - 👨‍💼 Panel de administración para gestionar conversaciones
 - 📱 Compatible con dispositivos móviles
-- ⚡ Carga rápida y optimizada
+- ⚡ Sistema simple con PHP + JSON (sin dependencias externas)
+- 🔔 Notificaciones de sonido para el admin
+- 🚀 Fácil de desplegar en cualquier hosting con PHP
 
 ## 📁 Estructura del Proyecto
 
 ```
 SitioWeb/
-├── index.html              # Página principal
-├── admin-chat.html         # Panel de administración del chat
-├── script.js               # Funcionalidad del chat y sitio
-├── styles.css              # Estilos del sitio
+├── index.html                  # Página principal
+├── admin-chat-simple.html      # Panel de administración del chat
+├── chat-api.php                # API REST para el chat
+├── chat-data.json              # Base de datos en JSON
+├── script.js                   # Funcionalidad del chat y sitio
+├── styles.css                  # Estilos del sitio
+├── CHAT-SETUP.md               # Documentación del sistema de chat
 ├── politica-privacidad.html
 ├── terminos-servicio.html
 └── Public/
-    └── img/                # Imágenes del sitio
+    └── img/                    # Imágenes del sitio
 ```
 
 ## 🚀 Configuración Rápida
 
-### 1. Configurar Firebase
+### 1. Requisitos
 
-1. Ve a [Firebase Console](https://console.firebase.google.com)
-2. Crea un proyecto o selecciona uno existente
-3. Activa **Realtime Database** en modo de prueba
-4. Obtén las credenciales de configuración
+- ✅ Servidor con PHP 7.0 o superior
+- ✅ Permisos de escritura en la carpeta del proyecto
+- ❌ NO requiere Node.js
+- ❌ NO requiere Firebase
+- ❌ NO requiere base de datos MySQL
 
-### 2. Actualizar Credenciales
+### 2. Instalación
 
-Edita las credenciales de Firebase en **dos archivos**:
+1. **Subir archivos al servidor:**
+   ```bash
+   # Sube todos los archivos a tu hosting
+   ```
 
-#### En `script.js` (línea ~445):
-```javascript
-const firebaseConfig = {
-    apiKey: "TU_API_KEY",
-    authDomain: "tu-proyecto.firebaseapp.com",
-    databaseURL: "https://tu-proyecto-default-rtdb.firebaseio.com",
-    projectId: "tu-proyecto",
-    storageBucket: "tu-proyecto.firebasestorage.app",
-    messagingSenderId: "123456789",
-    appId: "1:123456789:web:abc123"
-};
-```
+2. **Dar permisos al archivo JSON:**
+   ```bash
+   chmod 666 chat-data.json
+   ```
 
-#### En `admin-chat.html` (línea ~637):
-```javascript
-// Usa las mismas credenciales
-```
+3. **Acceder al sitio:**
+   ```
+   https://tu-dominio.com
+   ```
 
 ### 3. Probar Localmente
 
-Abre dos ventanas del navegador:
+Abre una terminal en la carpeta del proyecto:
 
 ```powershell
-# Ventana 1: Sitio web (cliente)
-start index.html
-
-# Ventana 2: Panel admin
-start admin-chat.html
+# Iniciar servidor PHP local
+php -S localhost:8000
 ```
 
+Abre dos ventanas del navegador:
+- **Cliente:** http://localhost:8000
+- **Admin:** http://localhost:8000/admin-chat-simple.html
+
 **Prueba:**
-1. Escribe un mensaje en el chat de `index.html`
-2. Verás aparecer el mensaje en `admin-chat.html`
+1. Escribe un mensaje en el chat del sitio web
+2. Verás aparecer el mensaje en el panel admin (máximo 3 segundos)
 3. Responde desde el panel admin
-4. La respuesta aparecerá instantáneamente en el chat del cliente
+4. La respuesta aparecerá en el chat del cliente (máximo 3 segundos)
 
-## 📱 Uso del Panel Admin
+## 💬 Sistema de Chat
 
-### Características del Panel:
+### Funcionamiento:
+- **Polling:** El sistema consulta cada 3 segundos si hay mensajes nuevos
+- **Sesiones:** Cada visitante tiene un ID único almacenado en localStorage
+- **Persistencia:** Los mensajes se guardan en `chat-data.json`
+- **Tiempo real:** Respuestas visibles en máximo 3 segundos
+
+### Características del Panel Admin:
 - ✅ Lista de conversaciones activas
-- 🔔 Notificaciones de sonido
+- 🔔 Notificaciones de sonido cuando llegan mensajes
 - 💬 Respuestas en tiempo real
-- 🔍 Búsqueda de conversaciones
 - 📊 Historial completo de mensajes
-
-### Respuestas Rápidas:
-- 👋 Saludo
-- ⏱️ En un momento
-- ❓ Más preguntas
-- ✅ Perfecto
+- 🗑️ Eliminar conversaciones
+- ⏱️ Actualización automática cada 3 segundos
 
 ## 🔐 Seguridad
 
-### Reglas de Firebase (Modo Desarrollo):
-```json
-{
-  "rules": {
-    ".read": true,
-    ".write": true
-  }
-}
+### Proteger el Panel Admin:
+
+**Opción 1: Renombrar el archivo**
+```bash
+mv admin-chat-simple.html admin-secreto-xyz123.html
+```
+
+**Opción 2: Proteger con contraseña (.htaccess)**
+```apache
+<Files "admin-chat-simple.html">
+    AuthType Basic
+    AuthName "Área Restringida"
+    AuthUserFile /ruta/completa/.htpasswd
+    Require valid-user
+</Files>
+```
+
+## 📖 Documentación Completa
+
+Para más detalles sobre el sistema de chat, lee [CHAT-SETUP.md](CHAT-SETUP.md)
 ```
 
 ⚠️ **Para producción**, actualiza las reglas para mayor seguridad:

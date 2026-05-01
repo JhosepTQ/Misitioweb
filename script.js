@@ -438,38 +438,11 @@ if (isLegalPage) {
 }
 
 // ========================================
-// CHATBOT FUNCTIONALITY - TIEMPO REAL CON FIREBASE
+// CHATBOT FUNCTIONALITY - SISTEMA SIMPLE PHP + JSON
 // ========================================
 
-// Configuración de Firebase
-const firebaseConfig = {
-    apiKey: "AIzaSyAjW7ADWDbkZCdwx7E4gQcaCD36xSYwO-w",
-    authDomain: "jgwebestudio.firebaseapp.com",
-    databaseURL: "https://jgwebestudio-default-rtdb.firebaseio.com",
-    projectId: "jgwebestudio",
-    storageBucket: "jgwebestudio.firebasestorage.app",
-    messagingSenderId: "658405943934",
-    appId: "1:658405943934:web:9b9eba8480ac4879cdc62f"
-};
-
-// Inicializar Firebase solo si no está inicializado
-let firebaseApp;
-let database;
-let chatSessionId;
-let messagesRef;
-
-try {
-    if (typeof firebase !== 'undefined' && !firebase.apps.length) {
-        firebaseApp = firebase.initializeApp(firebaseConfig);
-        database = firebase.database();
-        console.log('%c🔥 Firebase inicializado correctamente', 'color: #f59e0b; font-size: 12px;');
-    } else if (firebase.apps.length > 0) {
-        firebaseApp = firebase.app();
-        database = firebase.database();
-    }
-} catch (error) {
-    console.warn('Firebase no está configurado correctamente. El chat funcionará en modo local.', error);
-}
+// Configuración del API
+const CHAT_API_URL = 'chat-api.php';
 
 // Generar ID único de sesión para cada visitante
 function generateSessionId() {
@@ -482,7 +455,9 @@ function generateSessionId() {
     return newId;
 }
 
-chatSessionId = generateSessionId();
+const chatSessionId = generateSessionId();
+let lastMessageTimestamp = 0;
+let pollingInterval = null;
 
 const chatbotButton = document.getElementById('chatbotButton');
 const chatbotWindow = document.getElementById('chatbotWindow');
@@ -492,28 +467,16 @@ const chatbotSend = document.getElementById('chatbotSend');
 const chatbotMessages = document.getElementById('chatbotMessages');
 const quickOptions = document.querySelectorAll('.quick-option');
 
-let isFirebaseEnabled = false;
-
-// Inicializar referencia a la sesión de chat
-if (database) {
-    messagesRef = database.ref('chats/' + chatSessionId);
-    isFirebaseEnabled = true;
-    
-    // Marcar el inicio de la sesión
-    messagesRef.child('info').set({
-        startTime: firebase.database.ServerValue.TIMESTAMP,
-        status: 'active',
-        userAgent: navigator.userAgent,
-        page: window.location.href
-    });
-}
-
 // Abrir/cerrar chatbot
 if (chatbotButton) {
     chatbotButton.addEventListener('click', () => {
         chatbotWindow.classList.toggle('active');
-        if (chatbotWindow.classList.contains('active') && isFirebaseEnabled) {
-            loadPreviousMessages();
+        if (chatbotWindow.classList.contains('active')) {
+            // Iniciar polling cuando se abre el chat
+            startPolling();
+        } else {
+            // Detener polling cuando se cierra
+            stopPolling();
         }
     });
 }
@@ -521,13 +484,29 @@ if (chatbotButton) {
 if (chatbotClose) {
     chatbotClose.addEventListener('click', () => {
         chatbotWindow.classList.remove('active');
+        stopPolling();
     });
 }
 
 // Función para agregar mensaje en la interfaz
 function addMessage(text, isBot = true, timestamp = null) {
+    // Evitar duplicados: verificar si ya existe un mensaje con este timestamp y texto
+    if (timestamp) {
+        const existingMessages = chatbotMessages.querySelectorAll('.message');
+        for (const existingMsg of existingMessages) {
+            const existingTimestamp = existingMsg.getAttribute('data-timestamp');
+            const existingText = existingMsg.querySelector('p')?.textContent;
+            
+            if (existingTimestamp === String(timestamp) && existingText === text) {
+                console.log('%c⚠️ Mensaje duplicado detectado y evitado', 'color: #f59e0b; font-size: 11px;');
+                return; // No agregar el mensaje duplicado
+            }
+        }
+    }
+    
     const messageDiv = document.createElement('div');
     messageDiv.className = `message ${isBot ? 'bot-message' : 'user-message'}`;
+    messageDiv.setAttribute('data-timestamp', timestamp || Date.now());
     
     const messageContent = document.createElement('div');
     messageContent.className = 'message-content';
@@ -549,54 +528,52 @@ function addMessage(text, isBot = true, timestamp = null) {
 
 // Formatear timestamp
 function formatTime(timestamp) {
-    const date = new Date(timestamp);
+    const date = new Date(timestamp * 1000); // Convertir de segundos a milisegundos
     const hours = date.getHours().toString().padStart(2, '0');
     const minutes = date.getMinutes().toString().padStart(2, '0');
     return `${hours}:${minutes}`;
 }
 
-// Cargar mensajes previos de Firebase
-function loadPreviousMessages() {
-    if (!isFirebaseEnabled) return;
+// Iniciar polling para obtener mensajes nuevos del admin
+function startPolling() {
+    if (pollingInterval) return; // Ya está activo
     
-    // Limpiar mensajes actuales excepto el de bienvenida
-    const welcomeMessage = chatbotMessages.querySelector('.bot-message');
-    chatbotMessages.innerHTML = '';
-    if (welcomeMessage) {
-        chatbotMessages.appendChild(welcomeMessage);
-    }
+    // Consultar cada 3 segundos
+    pollingInterval = setInterval(async () => {
+        await checkForNewMessages();
+    }, 3000);
     
-    messagesRef.child('messages').orderByChild('timestamp').once('value', (snapshot) => {
-        snapshot.forEach((childSnapshot) => {
-            const message = childSnapshot.val();
-            addMessage(message.text, message.isBot, message.timestamp);
-        });
-    });
+    console.log('%c📡 Polling iniciado - consultando cada 3 segundos', 'color: #3b82f6; font-size: 11px;');
 }
 
-// Escuchar nuevos mensajes en tiempo real
-if (isFirebaseEnabled) {
-    let lastProcessedKey = null;
-    
-    messagesRef.child('messages').on('child_added', (snapshot) => {
-        const message = snapshot.val();
-        const messageKey = snapshot.key;
+// Detener polling
+function stopPolling() {
+    if (pollingInterval) {
+        clearInterval(pollingInterval);
+        pollingInterval = null;
+        console.log('%c📡 Polling detenido', 'color: #999; font-size: 11px;');
+    }
+}
+
+// Verificar si hay mensajes nuevos del admin
+async function checkForNewMessages() {
+    try {
+        const response = await fetch(`${CHAT_API_URL}?action=get&sessionId=${chatSessionId}&lastTimestamp=${lastMessageTimestamp}`);
+        const data = await response.json();
         
-        // Evitar procesar el mismo mensaje dos veces
-        if (lastProcessedKey === messageKey) return;
-        lastProcessedKey = messageKey;
-        
-        // Solo agregar si es del admin
-        if (message.sender === 'admin' || message.fromAdmin) {
-            // Verificar que no esté ya en el DOM
-            const existingMessages = Array.from(chatbotMessages.querySelectorAll('.message-content p'));
-            const isDuplicate = existingMessages.some(msg => msg.textContent === message.text);
-            
-            if (!isDuplicate) {
-                addMessage(message.text, true, message.timestamp);
-            }
+        if (data.success && data.hasNew && data.messages.length > 0) {
+            // Agregar nuevos mensajes
+            data.messages.forEach(msg => {
+                addMessage(msg.text, true, msg.timestamp);
+                lastMessageTimestamp = Math.max(lastMessageTimestamp, msg.timestamp);
+                
+                // Sonido de notificación
+                playNotificationSound();
+            });
         }
-    });
+    } catch (error) {
+        console.error('Error al verificar mensajes:', error);
+    }
 }
 
 // Función para mostrar indicador de escritura
@@ -615,61 +592,71 @@ function showTypingIndicator() {
     return typingDiv;
 }
 
-// Función para guardar mensaje en Firebase
-function saveMessageToFirebase(text, isBot = false, fromAdmin = false) {
-    if (!isFirebaseEnabled) {
-        console.warn('Firebase no disponible. Mensaje no guardado.');
-        return;
+// Función para enviar mensaje al servidor
+async function saveMessageToServer(text) {
+    try {
+        const response = await fetch(`${CHAT_API_URL}?action=send`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                sessionId: chatSessionId,
+                message: text,
+                userAgent: navigator.userAgent,
+                page: window.location.href
+            })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            console.log('%c✅ Mensaje enviado al servidor', 'color: #10b981; font-size: 11px;');
+            // Actualizar timestamp para evitar obtener nuestro propio mensaje
+            if (data.message && data.message.timestamp) {
+                lastMessageTimestamp = data.message.timestamp;
+            }
+        } else {
+            console.error('Error al enviar mensaje:', data.error);
+        }
+        
+    } catch (error) {
+        console.error('Error al conectar con el servidor:', error);
     }
-    
-    const messageData = {
-        text: text,
-        sender: fromAdmin ? 'admin' : 'client',
-        timestamp: Date.now()
-    };
-    
-    messagesRef.child('messages').push(messageData);
-    
-    // Actualizar última actividad
-    messagesRef.child('info').update({
-        lastActivity: Date.now(),
-        lastMessage: text.substring(0, 100)
-    });
-    
 }
-
-// Nota: Las notificaciones al admin se gestionan desde el panel admin-chat.html
-// que escucha los mensajes en tiempo real mediante Firebase
 
 // ========================================
 // GESTIÓN DE MENSAJES
 // ========================================
 
+// Flag para evitar envíos duplicados
+let isSendingMessage = false;
+
 // Función para enviar mensaje
 function sendMessage() {
     const userMessage = chatbotInput.value.trim();
     
-    if (userMessage === '') return;
+    if (userMessage === '' || isSendingMessage) return;
+    
+    // Bloquear envíos mientras se procesa
+    isSendingMessage = true;
+    if (chatbotSend) chatbotSend.disabled = true;
     
     // Agregar mensaje del usuario en la interfaz
     addMessage(userMessage, false);
     chatbotInput.value = '';
     
-    // Guardar en Firebase
-    saveMessageToFirebase(userMessage, false, false);
+    // Guardar en el servidor
+    saveMessageToServer(userMessage).finally(() => {
+        // Desbloquear después de enviar
+        isSendingMessage = false;
+        if (chatbotSend) chatbotSend.disabled = false;
+    });
     
     // Ocultar opciones rápidas después del primer mensaje
     const quickOptionsContainer = document.getElementById('quickOptions');
     if (quickOptionsContainer && quickOptionsContainer.style.display !== 'none') {
         quickOptionsContainer.style.display = 'none';
-    }
-    
-    // Actualizar estado de la conversación en Firebase
-    if (isFirebaseEnabled) {
-        messagesRef.child('info').update({
-            hasUnreadMessages: true,
-            status: 'waiting_response'
-        });
     }
 }
 
@@ -712,5 +699,6 @@ function playNotificationSound() {
     audio.play().catch(e => console.log('No se pudo reproducir el sonido'));
 }
 
-console.log('%c💬 Chatbot en tiempo real cargado', 'background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; font-size: 14px; padding: 8px; border-radius: 5px;');
+console.log('%c💬 Chatbot simple cargado - PHP + JSON', 'background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; font-size: 14px; padding: 8px; border-radius: 5px;');
 console.log('%cID de sesión: ' + chatSessionId, 'color: #6366f1; font-size: 12px;');
+console.log('%cSistema: PHP + JSON (sin Firebase)', 'color: #10b981; font-size: 12px;');
